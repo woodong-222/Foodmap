@@ -66,7 +66,6 @@ public class NaverMap implements ActionListener {
 
             JSONTokener tokener = new JSONTokener(response.toString());
             JSONObject object = new JSONObject(tokener);
-            System.out.println(object);
 
             if (object.has("addresses")) {
                 JSONArray arr = object.getJSONArray("addresses");
@@ -77,12 +76,9 @@ public class NaverMap implements ActionListener {
                     vo.setJibunAddress((String) temp.get("jibunAddress"));
                     vo.setX((String) temp.get("x"));
                     vo.setY((String) temp.get("y"));
-                    System.out.println(vo);
                 }
                 map_service(vo);
-            } else {
-                System.out.println("No addresses found in the response.");
-            }
+            } 
 
         } catch (Exception err) {
             System.out.println(err);
@@ -108,40 +104,26 @@ public class NaverMap implements ActionListener {
             con.setRequestProperty("X-NCP-APIGW-API-KEY-ID", clientId);
             con.setRequestProperty("X-NCP-APIGW-API-KEY", clientSecret);
 
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
+			InputStream is = con.getInputStream();
 
-            // 정상호출인 경우.
-            if (responseCode == 200) {
-                InputStream is = con.getInputStream();
+			int read = 0;
+			byte[] bytes = new byte[1024];
 
-                int read = 0;
-                byte[] bytes = new byte[1024];
+			// 랜덤 파일명으로 파일 생성
+			String tempName = Long.valueOf(new Date().getTime()).toString();
+			File file = new File(tempName + ".jpg"); // 파일 생성.
 
-                // 랜덤 파일명으로 파일 생성
-                String tempName = Long.valueOf(new Date().getTime()).toString();
-                File file = new File(tempName + ".jpg"); // 파일 생성.
+			file.createNewFile();
 
-                file.createNewFile();
+			OutputStream out = new FileOutputStream(file);
 
-                OutputStream out = new FileOutputStream(file);
+			while ((read = is.read(bytes)) != -1) {
+				out.write(bytes, 0, read); // 파일 작성
+			}
 
-                while ((read = is.read(bytes)) != -1) {
-                    out.write(bytes, 0, read); // 파일 작성
-                }
-
-                is.close();
-                ImageIcon img = new ImageIcon(file.getName());
-                naverMap.map.setIcon(img);
-                //naverMap.resAddress.setText(vo.getRoadAddress());
-                //naverMap.jibunAddress.setText(vo.getJibunAddress());
-                //naverMap.resX.setText(vo.getX());
-                //naverMap.resY.setText(vo.getY());
-
-            } else {
-                System.out.println(responseCode);
-            }
-
+			is.close();
+			ImageIcon img = new ImageIcon(file.getName());
+			naverMap.map.setIcon(img);
         } catch (Exception e) {
             System.out.println(e);
         }
