@@ -19,9 +19,11 @@ public class Foodmap extends JFrame {
 	private Image screenImage;
 	private Graphics screenGraphic;
 
+	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.jpg")).getImage();
 	private Image Map = new ImageIcon(Main.class.getResource("../images/Map1.jpg")).getImage(); // 제대로된 지도 이미지 교체 필요
 
+	// 버튼 이미지 경로 지정
 	private ImageIcon homeEnteredbutton = new ImageIcon(Main.class.getResource("../images/home2.png"));
 	private ImageIcon homeBasicbutton = new ImageIcon(Main.class.getResource("../images/home.png"));
 	private ImageIcon likedEnteredbutton = new ImageIcon(Main.class.getResource("../images/liked2.png"));
@@ -37,6 +39,7 @@ public class Foodmap extends JFrame {
 	private ImageIcon SfoodEnteredbutton = new ImageIcon(Main.class.getResource("../images/Sfood2.png"));
 	private ImageIcon SfoodBasicbutton = new ImageIcon(Main.class.getResource("../images/Sfood.png"));
 
+	// 버튼 생성
 	private JButton homebutton = new JButton(homeBasicbutton); // 홈버튼 생성
 	private JButton likedbutton = new JButton(likedBasicbutton); // 찜버튼 생성
 	private JButton Kfoodbutton = new JButton(KfoodBasicbutton); // 카테고리 버튼
@@ -99,7 +102,7 @@ public class Foodmap extends JFrame {
 		likedbutton.setFocusPainted(false);
 		likedbutton.addMouseListener(new MouseAdapter() {// 재정의
 			@Override
-			public void mouseEntered(MouseEvent e) {// 마우스 가까이 가면
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				likedbutton.setIcon(likedEnteredbutton);
 			}
 
@@ -115,23 +118,22 @@ public class Foodmap extends JFrame {
 		});
 
 		// 한식 버튼
-
 		Kfoodbutton.setBounds(0, 0, 360, 144); // 버튼 위치 및 사이즈
 		Kfoodbutton.setBorderPainted(false);
 		Kfoodbutton.setContentAreaFilled(false);
 		Kfoodbutton.setFocusPainted(false);
 		Kfoodbutton.addMouseListener(new MouseAdapter() {
 			@Override 
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				Kfoodbutton.setIcon(KfoodEnteredbutton); 
 			}
 		 
 			@Override 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
 				Kfoodbutton.setIcon(KfoodBasicbutton); 
 			}
 		 
-		 @Override public void mousePressed(MouseEvent e) { 
+		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //한식 버튼 눌렀을 때 
 		 	} 
 		});
@@ -143,16 +145,16 @@ public class Foodmap extends JFrame {
 		Cfoodbutton.setFocusPainted(false);
 		Cfoodbutton.addMouseListener(new MouseAdapter() {
 			@Override 
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				Cfoodbutton.setIcon(CfoodEnteredbutton); 
 			}
 		 
 			@Override 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
 				Cfoodbutton.setIcon(CfoodBasicbutton); 
 			}
 		 
-		 @Override public void mousePressed(MouseEvent e) { 
+		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //중식 버튼 눌렀을 때 
 		 	} 
 		});
@@ -164,59 +166,59 @@ public class Foodmap extends JFrame {
 		Jfoodbutton.setFocusPainted(false);
 		Jfoodbutton.addMouseListener(new MouseAdapter() {
 			@Override 
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				Jfoodbutton.setIcon(JfoodEnteredbutton); 
 			}
 		 
 			@Override 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
 				Jfoodbutton.setIcon(JfoodBasicbutton); 
 			}
 		 
-		 @Override public void mousePressed(MouseEvent e) { 
+		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //일식 버튼 눌렀을 때 
 		 	} 
 		});
 		
-		//양식
+		//양식 버튼
 		Wfoodbutton.setBounds(0, 432, 360, 144);
 		Wfoodbutton.setBorderPainted(false);
 		Wfoodbutton.setContentAreaFilled(false);
 		Wfoodbutton.setFocusPainted(false);
 		Wfoodbutton.addMouseListener(new MouseAdapter() {
 			@Override 
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				Wfoodbutton.setIcon(WfoodEnteredbutton); 
 			}
 		 
 			@Override 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
 				Wfoodbutton.setIcon(WfoodBasicbutton); 
 			}
 		 
-		 @Override public void mousePressed(MouseEvent e) { 
+		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //양식 버튼 눌렀을 때 
 		 	} 
 		});
 		
-		//분식
+		// 분식 버튼
 		Sfoodbutton.setBounds(0, 576, 360, 144);
 		Sfoodbutton.setBorderPainted(false);
 		Sfoodbutton.setContentAreaFilled(false);
 		Sfoodbutton.setFocusPainted(false);
 		Sfoodbutton.addMouseListener(new MouseAdapter() {
 			@Override 
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				Sfoodbutton.setIcon(SfoodEnteredbutton); 
 			}
 		 
 			@Override 
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
 				Sfoodbutton.setIcon(SfoodBasicbutton); 
 			}
 		 
-		 @Override public void mousePressed(MouseEvent e) { 
-			 //분식 버튼 눌렀을 때 
+		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+			 // 분식 버튼 눌렀을 때 
 		 	} 
 		});
 
