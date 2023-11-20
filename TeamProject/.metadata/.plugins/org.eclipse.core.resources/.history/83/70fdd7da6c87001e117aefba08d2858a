@@ -1,0 +1,11 @@
+package foodmap;
+import javax.swing.JPanel;
+
+public class ShowResturant extends JPanel{
+	void ShowInfo(Resturant r) {
+		
+	}
+	protected void paintComponent(Graphics g) {
+		
+	}
+}
