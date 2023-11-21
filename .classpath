@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="foodmap/src"/>
+	<classpathentry kind="lib" path="foodmap/json-20231013.jar"/>
+	<classpathentry kind="output" path="foodmap/bin"/>
+</classpath>

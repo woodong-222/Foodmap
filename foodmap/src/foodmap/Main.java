@@ -68,6 +68,30 @@ public class Main {
       V.add(Sinjeon);
       V.add(Well);
      
+      Vector <Resturant> K = new Vector <Resturant> (); //한식 리스트 저장
+      Vector <Resturant> W = new Vector <Resturant> (); //양식 리스트 저장
+      Vector <Resturant> C = new Vector <Resturant> (); //중식 리스트 저장
+      Vector <Resturant> J = new Vector <Resturant> (); // 일식 리스트 저장
+      Vector <Resturant> S = new Vector <Resturant> (); //분식 리스트 저장
+
+      for(int i = 0; i < V.size();i++) {
+    	  if(V.get(i).GetType() == 1) {
+    		  K.add(V.get(i));
+    	  }
+    	  else if (V.get(i).GetType()==2) {
+    		  C.add(V.get(i));
+    	  }
+    	  else if (V.get(i).GetType()==3) {
+    		  J.add(V.get(i));
+    	  }
+    	  else if (V.get(i).GetType()==4) {
+    		  W.add(V.get(i));
+    	  }
+    	  else if (V.get(i).GetType()==5) {
+    		  S.add(V.get(i));
+    	  }
+      }
+      
       
       
    }
