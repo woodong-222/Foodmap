@@ -30,6 +30,7 @@ public class Resturant extends Share {
 		this.Restday = Restday;
 		this.Address = Address;
 	}
+	
 	void SetLike(boolean like) { //좋아요 입력
 		this.Like = like;
 		return;
@@ -73,16 +74,18 @@ public class Resturant extends Share {
 	
 	}
 	void SetMenu( String menu ) { //가게 메뉴 입력받기
-		//Menu = new ImageIcon(Main.class.getResource(menu)).getImage();
+		Menu = new ImageIcon(Main.class.getResource(menu)).getImage();
 	}
-	void ShowMenu(Graphics g) { // 가게 메뉴 출력하기
-		g.drawImage(Menu, 0, 144, 360, 200, null);
-	}
+	
 	void SetPhoto ( String photo) {//가게 사진 입력받기
-		//Photo = new ImageIcon(Main.class.getResource(photo)).getImage();
+		Photo = new ImageIcon(Main.class.getResource(photo)).getImage();
 	}
-	void ShowPhoto(Graphics g) { //가게 사진 출력하기
-		g.drawImage(Photo, 0, 144, 360, 200, null);
+	
+	public Image GetMenu() {
+		return Menu;
+	}
+	public Image GetPhoto() {
+		return Photo;
 	}
 	
 	void ShowReview() {//리뷰 보여주기
@@ -91,6 +94,7 @@ public class Resturant extends Share {
 	void WriteReview() {//리뷰 쓰기
 		
 	}
+	
 	
 }
 

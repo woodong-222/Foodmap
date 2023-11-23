@@ -114,4 +114,12 @@ public class ShowResturant extends JPanel{ //가게 정보 출력해주는 클�
 		}
 	}
 	
+	void ShowPhoto(Resturant r, Graphics g) { //가게 사진 출력하기
+		g.drawImage(r.GetPhoto(), 0, 144, 360, 200, null);
+	}
+	
+	void ShowMenu(Resturant r, Graphics g) { // 가게 메뉴 출력하기
+		g.drawImage(r.GetMenu(), 0, 144, 360, 200, null);
+	}
+	
 }

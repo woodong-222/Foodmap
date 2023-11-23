@@ -1,5 +1,5 @@
 package foodmap;
-
+import foodmap.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -36,6 +36,9 @@ public class Category extends JPanel{
 	private JButton Jeulgyeobutton = new JButton(Jeulgyeobasicbutton);
 	private JButton Hansotbutton = new JButton(Hansotbasicbutton);
 	private JButton Sseonybutton = new JButton(Sseonybasicbutton);
+	
+	
+	
 	
 	private JLabel Cfoodlabel = new JLabel(CfoodBasiclabel); // 중식 카테고리 라벨
 	private JButton Chowonbutton = new JButton(Chowonbasicbutton); // 중식 식당 버튼들
