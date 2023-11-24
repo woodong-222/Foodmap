@@ -1,7 +1,5 @@
 package foodmap;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.util.Vector;
 
 import javax.swing.ImageIcon;
 

@@ -30,7 +30,7 @@ public class NaverMap implements ActionListener {
     public static int mapsize = 16;
     
     Foodmap naverMap;
-
+    
     public NaverMap(Foodmap naverMap) {
         this.naverMap = naverMap;
     }
@@ -128,4 +128,5 @@ public class NaverMap implements ActionListener {
             System.out.println(e);
         }
     }
+    
 }

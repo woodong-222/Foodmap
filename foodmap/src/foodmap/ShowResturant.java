@@ -2,7 +2,7 @@ package foodmap;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import foodmap.*;
+
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 

@@ -1,7 +1,6 @@
 package foodmap;
-import foodmap.Main;
-import java.util.*;
-import foodmap.Resturant;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class Heart {
 	HashMap<String, String> HeartList = new HashMap <String, String> ();

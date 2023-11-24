@@ -1,15 +1,11 @@
 package foodmap;
 
-import foodmap.*;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Category extends JPanel {
 	// 이미지는 추가 해야함
@@ -38,6 +34,8 @@ public class Category extends JPanel {
 	
 	public Category() 
 	{
+		setLayout(null);
+		
 		// 한식
 		Kfoodlabel.setBounds(0, 0, 360, 100); // 버튼 위치 및 사이즈
 	    Kfoodlabel.setVisible(true);
@@ -145,14 +143,15 @@ public class Category extends JPanel {
 			}
 		});
 
+	}
+
+	public void KfoodCategory() { // 카테고리 스크린
 		add(Kfoodlabel);
 		add(Wangbutton);
 		add(Jeulgyeobutton);
 		add(Hansotbutton);
 		add(Sseonybutton);
-	}
-
-	public void KfoodCategory() { // 카테고리 스크린
+		System.out.println("아니 이게 왜 버튼 추가가 안돼");
 	}
 	
 	void CfoodCategory() {// 중식 카테고리 음식점 버튼

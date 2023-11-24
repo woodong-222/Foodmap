@@ -17,7 +17,7 @@ import javax.swing.Timer;
 
 public class Foodmap extends JFrame {
 	
-	String address; // 주소 변수 (여기에 주소 넣으면 지도에서 이 주소값을 불러옴)
+	public static String address; // 주소 변수 (여기에 주소 넣으면 지도에서 이 주소값을 불러옴)
 	JLabel map; // 지도 사진 (여기에서 지도 출력)
 	
 	private Image screenImage;
@@ -25,7 +25,6 @@ public class Foodmap extends JFrame {
 
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
-	// private Image Map = new ImageIcon(Main.class.getResource("../images/Map1.jpg")).getImage(); // 제대로된 지도 이미지 교체 필요
 
 	// 버튼 이미지 경로 지정
 	private ImageIcon homeEnteredbutton = new ImageIcon(Main.class.getResource("../images/home2.png"));
@@ -58,8 +57,6 @@ public class Foodmap extends JFrame {
 	private JButton Pbutton = new JButton(PBasicbutton);
 	private JButton Mbutton = new JButton(MBasicbutton);
 
-	private boolean isScreen1 = false; // 메인화면이면 true
-
 	public Foodmap() {
 		setUndecorated(true); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
 		setTitle("Food Map"); // 타이틀
@@ -72,13 +69,8 @@ public class Foodmap extends JFrame {
 		setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
 		setLayout(null);
 
-		Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage(); // 배경 숨기기
-		repaint(); // 변경된 상태를 다시 그리기
+		NaverMap naverMap = new NaverMap(this);
 		
-		Category category = new Category();
-        // NaverMap 객체 생성
-        NaverMap naverMap = new NaverMap(this);
-        
 		Timer timer = new Timer(3000, new ActionListener() { // 3초뒤에 로딩화면 숨김
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -112,9 +104,9 @@ public class Foodmap extends JFrame {
 
 		// 찜 버튼
 		likedbutton.setBounds(975, 20, 65, 65); // 버튼 위치 및 사이즈
-		likedbutton.setBorderPainted(false);
-		likedbutton.setContentAreaFilled(false);
-		likedbutton.setFocusPainted(false);
+		//likedbutton.setBorderPainted(false);
+		//likedbutton.setContentAreaFilled(false);
+		//likedbutton.setFocusPainted(false);
 		likedbutton.addMouseListener(new MouseAdapter() {// 재정의
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
@@ -150,8 +142,10 @@ public class Foodmap extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				removeScreen1();
-				category.KfoodCategory();
+				//한식 버튼 눌렀을 때 
+				Kcategory kCategory = new Kcategory((Foodmap) getParent());
+				kCategory.KfoodCategory();
+				setVisible(false);
 			}
 		});
 		
@@ -173,6 +167,7 @@ public class Foodmap extends JFrame {
 		 
 		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //중식 버튼 눌렀을 때 
+				setVisible(false);
 		 	} 
 		});
 		
@@ -194,6 +189,7 @@ public class Foodmap extends JFrame {
 		 
 		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //일식 버튼 눌렀을 때 
+				setVisible(false);
 		 	} 
 		});
 		
@@ -215,6 +211,7 @@ public class Foodmap extends JFrame {
 		 
 		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 //양식 버튼 눌렀을 때 
+				setVisible(false);
 		 	} 
 		});
 		
@@ -236,6 +233,7 @@ public class Foodmap extends JFrame {
 		 
 		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 			 // 분식 버튼 눌렀을 때 
+				setVisible(false);
 		 	} 
 		});
 		
