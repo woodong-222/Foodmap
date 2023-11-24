@@ -72,6 +72,10 @@ public class Foodmap extends JFrame {
 		setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
 		setLayout(null);
 
+		Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage(); // 배경 숨기기
+		repaint(); // 변경된 상태를 다시 그리기
+		
+		Category category = new Category();
         // NaverMap 객체 생성
         NaverMap naverMap = new NaverMap(this);
         
@@ -134,19 +138,21 @@ public class Foodmap extends JFrame {
 		Kfoodbutton.setContentAreaFilled(false);
 		Kfoodbutton.setFocusPainted(false);
 		Kfoodbutton.addMouseListener(new MouseAdapter() {
-			@Override 
+			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				Kfoodbutton.setIcon(KfoodEnteredbutton); 
+				Kfoodbutton.setIcon(KfoodEnteredbutton);
 			}
-		 
-			@Override 
+
+			@Override
 			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				Kfoodbutton.setIcon(KfoodBasicbutton); 
+				Kfoodbutton.setIcon(KfoodBasicbutton);
 			}
-		 
-		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-			 //한식 버튼 눌렀을 때 
-		 	} 
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				removeScreen1();
+				category.KfoodCategory();
+			}
 		});
 		
 		// 중식 버튼 
@@ -295,7 +301,6 @@ public class Foodmap extends JFrame {
 	}
 
 	public void setScreen1() { // 스크린 1
-		isScreen1 = true;
 		// 버튼들
 		add(homebutton);
 		add(likedbutton);
@@ -308,6 +313,18 @@ public class Foodmap extends JFrame {
 		add(Mbutton);
 		add(map); // 지도
 	}
+	
+	public void removeScreen1() { // 스크린 1에서 삭제
+
+	    // 버튼들 제거
+	    remove(Kfoodbutton);
+	    remove(Cfoodbutton);
+	    remove(Jfoodbutton);
+	    remove(Wfoodbutton);
+	    remove(Sfoodbutton);
+	    // Repaint 호출
+	    //repaint();
+	}
 
 	public void paint(Graphics g) {
 		screenImage = createImage(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -318,9 +335,6 @@ public class Foodmap extends JFrame {
 
 	public void screenDraw(Graphics g) { // 화면 그리기
 		g.drawImage(Background, 0, 0, null);
-		if (isScreen1) {
-			// g.drawImage(Map, 360, 0, 920, 720, null);
-		}
 		paintComponents(g);
 		this.repaint();
 	}

@@ -11,7 +11,7 @@ public class Main {
       new Foodmap();
       
       Resturant Wang = new Resturant(1, "왕십리 야식", "11:00~23:00", "041-564-2848", "연중무휴", "충남 천안시 동남구 병천면 병천리 162-1");//객체 찍기
-      Wang.SetMenu("wang");//메뉴사진등록
+      Wang.SetMenu("../images/wang.jpg");//메뉴사진등록
       Wang.SetPhoto("사진 url");//가게사진 등록
       
       Resturant Jeulgyeo = new Resturant(2, "즐겨먹기", "11:00~20:00", "041-522-0122", "매주 토요일", "충남 천안시 동남구 병천면 충절로 1578");
