@@ -7,15 +7,16 @@ import java.util.Iterator;
 public class Heart {
    HashMap<String, String> HeartList = new HashMap <String, String> ();
    
-   void AddHeart(Resturant r) { //좋아요 누르기 + 찜에 추가
-      r.SetLike(true);
-      HeartList.put(r.GetName(), r.GetAddress());
-   }
-   
-   void DeleteHeart(Resturant r) { //좋아요 취소하기 + 찜에서 삭제
-      r.SetLike(false);
-      HeartList.remove(r.GetName());
-   }
+   void Like(Resturant r) { 
+		if(r.GetLike()== false) {//좋아요 안눌려있을 때
+			r.SetLike(true); //좋아요 누른 상태로 변경 
+			HeartList.put(r.GetName(), r.GetAddress());//찜 리스트에 추가
+		}
+		else if (r.GetLike()== true) {//좋아요 눌려있을때
+			r.SetLike(false);//좋아요 안누른 상태로 변경
+			HeartList.remove(r.GetName()); //찜 리스트 빼기
+		}
+	}
    
    void PrintHeartList(Graphics g) { // 찜목록 출력
       Iterator<String> keys = HeartList.keySet().iterator();
