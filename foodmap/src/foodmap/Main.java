@@ -7,12 +7,26 @@ public class Main {
 	public static final int SCREEN_WIDTH = 1060;
 	public static final int SCREEN_HEIGHT = 500;
 
-	public static void main(String[] args) {
-        Foodmap foodmap = new Foodmap();
-        NaverMap naverMap = new NaverMap(foodmap);
+	static Vector<Resturant> V = new Vector<Resturant>();
+	
+	private static Main main_instance = null;
+	   
+	   private Main() {}
+	   public static Main getInstance() {
+	      if(main_instance == null) {
+	         main_instance = new Main();
+	         main_instance.initializeData();
+	      }
+	      return main_instance;
+	   }
+	   
+	   public static void main(String[] args) {
+		      new Foodmap();
+		   }
 
+	public void initializeData() {
 		Resturant Wang = new Resturant(1, "왕십리 야식", "11:00~23:00", "041-564-2848", "연중무휴", "충남 천안시 동남구 병천면 병천리 162-1");// 객체
-																														// 찍기
+		// 찍기
 		Wang.SetMenu("../images/wang.jpg");// 메뉴사진등록
 		Wang.SetPhoto("사진 url");// 가게사진 등록
 
@@ -61,8 +75,6 @@ public class Main {
 		Well.SetMenu("well");
 		Well.SetPhoto("사진 url");
 
-		Vector<Resturant> V = new Vector<Resturant>();
-
 		V.add(Wang);// 객체 만들었으면 벡터에 추가하기
 		V.add(Jeulgyeo);
 		V.add(Hansot);
@@ -74,7 +86,7 @@ public class Main {
 		V.add(Yogit);
 		V.add(Sinjeon);
 		V.add(Well);
-
+		
 		Vector<Resturant> K = new Vector<Resturant>(); // 한식 리스트 저장
 		Vector<Resturant> W = new Vector<Resturant>(); // 양식 리스트 저장
 		Vector<Resturant> C = new Vector<Resturant>(); // 중식 리스트 저장
@@ -94,6 +106,17 @@ public class Main {
 				S.add(V.get(i));
 			}
 		}
+	}
 
+	public Resturant getResturantInfo(String name) {
+		// 벡터에 저장된 가게 정보를 조회하면서 이름이 일치하는 가게를 찾아 반환
+		for (Resturant r : V) {
+			if (r.GetName().equals(name)) {
+				return r;
+			}
+		}
+
+		// 일치하는 가게를 찾지 못한 경우, 적절한 처리를 수행하거나 예외를 던질 수 있음
+		return null; // 예시로 null 반환
 	}
 }

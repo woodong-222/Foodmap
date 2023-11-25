@@ -12,17 +12,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class Foodmap extends JFrame {
-	
+
 	public static String address; // 주소 변수 (여기에 주소 넣으면 지도에서 이 주소값을 불러옴)
-	JLabel map; // 지도 사진 (여기에서 지도 출력)
-	
+	public JLabel map; // 지도 사진 (여기에서 지도 출력)
+
 	private Image screenImage;
 	private Graphics screenGraphic;
 
+	// Jpanel들 객체 지정
+	private JPanel button;
+	public Category category = new Category(this);
+	public ShowResturant showresturant;
+	
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
 
@@ -57,6 +62,7 @@ public class Foodmap extends JFrame {
 	private JButton Pbutton = new JButton(PBasicbutton);
 	private JButton Mbutton = new JButton(MBasicbutton);
 
+
 	public Foodmap() {
 		setUndecorated(true); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
 		setTitle("Food Map"); // 타이틀
@@ -68,17 +74,9 @@ public class Foodmap extends JFrame {
 
 		setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
 		setLayout(null);
-
-		NaverMap naverMap = new NaverMap(this);
+	
 		
-		Timer timer = new Timer(3000, new ActionListener() { // 3초뒤에 로딩화면 숨김
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Background = null; // 배경 숨기기
-				repaint(); // 변경된 상태를 다시 그리기
-				setScreen1(); // 버튼 등을 추가하는 메소드 호출
-			}
-		});
+		NaverMap naverMap = new NaverMap(this);
 
 		// 홈 버튼
 		homebutton.setBounds(900, 20, 65, 65); // 버튼 위치 및 사이즈
@@ -98,15 +96,15 @@ public class Foodmap extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 홈 버튼 눌렀을 때
+				changeJpanel(0);
 			}
 		});
 
 		// 찜 버튼
 		likedbutton.setBounds(975, 20, 65, 65); // 버튼 위치 및 사이즈
-		//likedbutton.setBorderPainted(false);
-		//likedbutton.setContentAreaFilled(false);
-		//likedbutton.setFocusPainted(false);
+		likedbutton.setBorderPainted(false);
+		likedbutton.setContentAreaFilled(false);
+		likedbutton.setFocusPainted(false);
 		likedbutton.addMouseListener(new MouseAdapter() {// 재정의
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
@@ -121,6 +119,51 @@ public class Foodmap extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 찜 버튼 눌렀을 때
+			}
+		});
+		// + 버튼
+		Pbutton.setBounds(1020, 460, 32, 32);
+		Pbutton.setBorderPainted(false);
+		Pbutton.setContentAreaFilled(false);
+		Pbutton.setFocusPainted(false);
+		Pbutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
+				Pbutton.setIcon(PEnteredbutton);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				Pbutton.setIcon(PBasicbutton);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				NaverMap.mapsize++; // 맵 사이즈 늘리기
+				naverMap.actionPerformed(null); // 지도 새로고침
+			}
+		});
+		
+		// - 버튼
+		Mbutton.setBounds(980, 460, 32, 32);
+		Mbutton.setBorderPainted(false);
+		Mbutton.setContentAreaFilled(false);
+		Mbutton.setFocusPainted(false);
+		Mbutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
+				Mbutton.setIcon(MEnteredbutton);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				Mbutton.setIcon(MBasicbutton);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				NaverMap.mapsize--; // 맵 사이즈 줄이기
+				naverMap.actionPerformed(null); // 지도 새로고침
 			}
 		});
 
@@ -142,186 +185,164 @@ public class Foodmap extends JFrame {
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				//한식 버튼 눌렀을 때 
-				Kcategory kCategory = new Kcategory((Foodmap) getParent());
-				kCategory.KfoodCategory();
-				setVisible(false);
+				// 한식 버튼 눌렀을 때
+				// 패널 전환
+				Kfoodbutton.setIcon(KfoodBasicbutton);
+				category.removeAll();
+		        category.KfoodCategory();
+		        changeJpanel(1);
 			}
 		});
-		
-		// 중식 버튼 
+
+		// 중식 버튼
 		Cfoodbutton.setBounds(0, 100, 360, 100);
 		Cfoodbutton.setBorderPainted(false);
 		Cfoodbutton.setContentAreaFilled(false);
 		Cfoodbutton.setFocusPainted(false);
 		Cfoodbutton.addMouseListener(new MouseAdapter() {
-			@Override 
+			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				Cfoodbutton.setIcon(CfoodEnteredbutton); 
+				Cfoodbutton.setIcon(CfoodEnteredbutton);
 			}
-		 
-			@Override 
+
+			@Override
 			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				Cfoodbutton.setIcon(CfoodBasicbutton); 
+				Cfoodbutton.setIcon(CfoodBasicbutton);
 			}
-		 
-		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-			 //중식 버튼 눌렀을 때 
-				setVisible(false);
-		 	} 
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+
+				category.removeAll();
+				Cfoodbutton.setIcon(CfoodBasicbutton);
+		        category.CfoodCategory();
+		        changeJpanel(1);
+			}
 		});
-		
+
 		// 일식 버튼
 		Jfoodbutton.setBounds(0, 200, 360, 100);
 		Jfoodbutton.setBorderPainted(false);
 		Jfoodbutton.setContentAreaFilled(false);
 		Jfoodbutton.setFocusPainted(false);
 		Jfoodbutton.addMouseListener(new MouseAdapter() {
-			@Override 
+			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				Jfoodbutton.setIcon(JfoodEnteredbutton); 
+				Jfoodbutton.setIcon(JfoodEnteredbutton);
 			}
-		 
-			@Override 
+
+			@Override
 			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				Jfoodbutton.setIcon(JfoodBasicbutton); 
+				Jfoodbutton.setIcon(JfoodBasicbutton);
 			}
-		 
-		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-			 //일식 버튼 눌렀을 때 
-				setVisible(false);
-		 	} 
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+
+				category.removeAll();
+				Jfoodbutton.setIcon(JfoodBasicbutton);
+		        category.JfoodCategory();
+		        changeJpanel(1);
+			}
 		});
-		
-		//양식 버튼
+
+		// 양식 버튼
 		Wfoodbutton.setBounds(0, 300, 360, 100);
 		Wfoodbutton.setBorderPainted(false);
 		Wfoodbutton.setContentAreaFilled(false);
 		Wfoodbutton.setFocusPainted(false);
 		Wfoodbutton.addMouseListener(new MouseAdapter() {
-			@Override 
+			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				Wfoodbutton.setIcon(WfoodEnteredbutton); 
+				Wfoodbutton.setIcon(WfoodEnteredbutton);
 			}
-		 
-			@Override 
+
+			@Override
 			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				Wfoodbutton.setIcon(WfoodBasicbutton); 
+				Wfoodbutton.setIcon(WfoodBasicbutton);
 			}
-		 
-		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-			 //양식 버튼 눌렀을 때 
-				setVisible(false);
-		 	} 
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+
+				category.removeAll();
+				Wfoodbutton.setIcon(WfoodBasicbutton);
+		        category.WfoodCategory();
+		        changeJpanel(1);
+			}
 		});
-		
+
 		// 분식 버튼
 		Sfoodbutton.setBounds(0, 400, 360, 100);
 		Sfoodbutton.setBorderPainted(false);
 		Sfoodbutton.setContentAreaFilled(false);
 		Sfoodbutton.setFocusPainted(false);
 		Sfoodbutton.addMouseListener(new MouseAdapter() {
-			@Override 
+			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				Sfoodbutton.setIcon(SfoodEnteredbutton); 
+				Sfoodbutton.setIcon(SfoodEnteredbutton);
 			}
-		 
-			@Override 
-			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				Sfoodbutton.setIcon(SfoodBasicbutton); 
-			}
-		 
-		 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-			 // 분식 버튼 눌렀을 때 
-				setVisible(false);
-		 	} 
-		});
-		
-		// + 버튼
-				Pbutton.setBounds(1020, 460, 32, 32);
-				Pbutton.setBorderPainted(false);
-				Pbutton.setContentAreaFilled(false);
-				Pbutton.setFocusPainted(false);
-				Pbutton.addMouseListener(new MouseAdapter() {
-					@Override 
-					public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-						Pbutton.setIcon(PEnteredbutton); 
-					}
-				 
-					@Override 
-					public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-						Pbutton.setIcon(PBasicbutton); 
-					}
-				 
-				 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-					 NaverMap.mapsize++; // 맵 사이즈 늘리기
-					 naverMap.actionPerformed(null); // 지도 새로고침
-				 	} 
-				});
-		// - 버튼
-				Mbutton.setBounds(980, 460, 32, 32);
-				Mbutton.setBorderPainted(false);
-				Mbutton.setContentAreaFilled(false);
-				Mbutton.setFocusPainted(false);
-				Mbutton.addMouseListener(new MouseAdapter() {
-					@Override 
-					public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-						Mbutton.setIcon(MEnteredbutton); 
-					}
-				 
-					@Override 
-					public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-						Mbutton.setIcon(MBasicbutton); 
-					}
-				 
-				 @Override public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-					 NaverMap.mapsize--; // 맵 사이즈 줄이기
-					 naverMap.actionPerformed(null); // 지도 새로고침
-				 	} 
-				});
-		
-        JFrame frm = new JFrame();
-        frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //Container c = frm.getContentPane();
 
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				Sfoodbutton.setIcon(SfoodBasicbutton);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+
+				category.removeAll();
+				Sfoodbutton.setIcon(SfoodBasicbutton);
+		        category.SfoodCategory();
+		        changeJpanel(1);
+			}
+		});
+
+		// JFrame frm = new JFrame();
+		// frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Container c = frm.getContentPane();
+		
+		button = new JPanel();
+		button.setLayout(null);
+		button.setBounds(0, 0, 360, 500);
+		button.add(Kfoodbutton);
+		button.add(Cfoodbutton);
+		button.add(Jfoodbutton);
+		button.add(Wfoodbutton);
+		button.add(Sfoodbutton);
+		//button.setBackground(Color.yellow);
+
+		Timer timer = new Timer(0001, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Background = null; // 배경 숨기기
+
+				add(button); // 버튼 패널
+				el_add();
+				repaint(); // 변경된 상태를 다시 그리기
+			}
+		});
 		timer.setRepeats(false); // 한 번만 실행
 		timer.start();
-		
+
 		// 지도 관련
-        address = "충절로 1600"; // 도로명 주소를 집어넣음
-        map = new JLabel(); // 지도 객체 생성
-        map.setBounds(360, -111, 877, 720); // 지도 위치 설정
+		address = "신율로 43"; // 도로명 주소를 집어넣음
+		map = new JLabel(); // 지도 객체 생성
+		map.setBounds(360, -111, 877, 720); // 지도 위치 설정
 
-
-        // 지도 새로고침
-        naverMap.actionPerformed(null);
+		// 지도 새로고침
+		naverMap.actionPerformed(null);
 
 	}
 
-	public void setScreen1() { // 스크린 1
-		// 버튼들
+
+	public void el_add() { // 매 화면 필요한 화면 출력
 		add(homebutton);
 		add(likedbutton);
-		add(Kfoodbutton);
-		add(Cfoodbutton);
-		add(Jfoodbutton);
-		add(Wfoodbutton);
-		add(Sfoodbutton);
 		add(Pbutton);
 		add(Mbutton);
-		add(map); // 지도
-	}
-	
-	public void removeScreen1() { // 스크린 1에서 삭제
-
-	    // 버튼들 제거
-	    remove(Kfoodbutton);
-	    remove(Cfoodbutton);
-	    remove(Jfoodbutton);
-	    remove(Wfoodbutton);
-	    remove(Sfoodbutton);
-	    // Repaint 호출
-	    //repaint();
+		
+		add(map);
 	}
 
 	public void paint(Graphics g) {
@@ -335,5 +356,29 @@ public class Foodmap extends JFrame {
 		g.drawImage(Background, 0, 0, null);
 		paintComponents(g);
 		this.repaint();
+	}
+	
+	public void changeJpanel(int paneltype) {
+		if(paneltype == 0) { // 홈버튼
+			setContentPane(button);
+		}
+		if(paneltype == 1){ // 한식, 중식, 일식 등등 버튼
+			setContentPane(category);
+		}
+        if(paneltype == 2) { // 가게 버튼
+        }
+
+		el_add();
+        revalidate();
+        repaint();
+	}
+	public void changerest(String rest) { // 가게 버튼
+		//showresturant.removeAll();
+		Resturant resturant = Main.getInstance().getResturantInfo(rest);
+    	showresturant = new ShowResturant(this, resturant);
+    	setContentPane(showresturant);
+		el_add();
+        revalidate();
+        repaint();
 	}
 }
