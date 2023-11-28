@@ -14,6 +14,8 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	private Restaurant restaurant; // Restaurant 인스턴스
 	private JButton menuButton; // 리뷰 보기 버튼
     private boolean showReviewState = false; // 리뷰 표시 상태를 추적합니다.
+    private boolean showMenuState = false; // 메뉴판 표시 상태를 추적합니다.
+
 	
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
@@ -28,9 +30,21 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		add(namelabel);
 		repaint();
 		
+		// 메뉴판 보기 버튼을 생성하고 추가합니다.
+        menuButton = new JButton("메뉴판 보기");
+        menuButton.setBounds(0, 428, 180, 72); // 버튼 위치와 크기 설정
+        menuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            	showMenuState = !showMenuState; // 상태 토글
+                repaint(); // 패널을 다시 그려 리뷰를 표시합니다.
+            }
+        });
+        add(menuButton);
+		
 		// 리뷰 보기 버튼을 생성하고 추가합니다.
         reviewButton = new JButton("리뷰 보기");
-        reviewButton.setBounds(0, 300, 120, 30); // 버튼 위치와 크기 설정
+        reviewButton.setBounds(180, 428, 180, 72); // 버튼 위치와 크기 설정
         reviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
