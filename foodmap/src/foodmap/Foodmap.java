@@ -328,7 +328,7 @@ public class Foodmap extends JFrame {
 		timer.start();
 
 		// 지도 관련
-		address = "신율로 43"; // 도로명 주소를 집어넣음
+		address = "충절로 1600"; // 도로명 주소를 집어넣음
 		map = new JLabel(); // 지도 객체 생성
 		map.setBounds(360, -111, 877, 720); // 지도 위치 설정
 
@@ -363,6 +363,8 @@ public class Foodmap extends JFrame {
 	public void changeJpanel(int paneltype) {
 		if(paneltype == 0) { // 홈버튼
 			setContentPane(button);
+			address = "충절로 1600";
+			naverMap.actionPerformed(null);
 		}
 		if(paneltype == 1){ // 한식, 중식, 일식 등등 버튼
 			setContentPane(category);

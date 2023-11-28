@@ -1,21 +1,31 @@
 package foodmap;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Map;
 
-public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 클래스
-	
-	private JLabel namelabel;
-	private JButton reviewButton; // 리뷰 보기 버튼
-	private Restaurant restaurant; // Restaurant 인스턴스
-	private JButton menuButton; // 리뷰 보기 버튼
-    private boolean showReviewState = false; // 리뷰 표시 상태를 추적합니다.
-    private boolean showMenuState = false; // 메뉴판 표시 상태를 추적합니다.
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
+public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 클래스
+
+	private JLabel namelabel;
+	private JLabel Photolabel;
+	private JButton reviewbutton; // 리뷰 보기 버튼
+	private Restaurant restaurant; // Restaurant 인스턴스
+	private JButton menubutton; // 리뷰 보기 버튼
+	private boolean showReviewState = false; // 리뷰 표시 상태를 추적합니다.
+	private boolean showMenuState = false; // 메뉴판 표시 상태를 추적합니다.
+
+	boolean isphoto = true;
+	boolean isinfor = true;
 	
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
@@ -23,77 +33,134 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
 
-		namelabel = new JLabel(r.GetName()+" 정보");
+		// 가게 이름
+		namelabel = new JLabel(r.GetName() + " 정보");
 		namelabel.setHorizontalAlignment(JLabel.CENTER);
 		namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 		namelabel.setBounds(0, 0, 360, 72);
 		add(namelabel);
-		repaint();
-		
+
+		// 가게 사진
+		ImageIcon photo = new ImageIcon(r.GetPhoto());
+		Photolabel = new JLabel(photo);
+		Photolabel.setBounds(0, 72, 360, 150);
+
+		// 가게 정보
+
+
 		// 메뉴판 보기 버튼을 생성하고 추가합니다.
-        menuButton = new JButton("메뉴판 보기");
-        menuButton.setBounds(0, 428, 180, 72); // 버튼 위치와 크기 설정
-        menuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	showMenuState = !showMenuState; // 상태 토글
-                repaint(); // 패널을 다시 그려 리뷰를 표시합니다.
-            }
-        });
-        add(menuButton);
-		
+		menubutton = new JButton(new ImageIcon(Main.class.getResource("../images/menu.png")));
+		menubutton.setBorderPainted(false);
+		menubutton.setContentAreaFilled(false);
+		menubutton.setFocusPainted(false);
+		menubutton.setBounds(0, 428, 180, 72); // 버튼 위치와 크기 설정
+		menubutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
+				if (isphoto) {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/menu2.png")));
+				} else {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/photo2.png")));
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				if (isphoto) {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/menu.png")));
+				} else {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/photo.png")));
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				if (isphoto) {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/photo2.png")));
+					ImageIcon menu = new ImageIcon(r.GetMenu());
+					Photolabel.setIcon(menu);
+					isphoto = false;
+				} else {
+					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/menu2.png")));
+					ImageIcon photo = new ImageIcon(r.GetPhoto());
+					Photolabel.setIcon(photo);
+					isphoto = true;
+				}
+			}
+		});
+
 		// 리뷰 보기 버튼을 생성하고 추가합니다.
-        reviewButton = new JButton("리뷰 보기");
-        reviewButton.setBounds(180, 428, 180, 72); // 버튼 위치와 크기 설정
-        reviewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	showReviewState = !showReviewState; // 상태 토글
-                repaint(); // 패널을 다시 그려 리뷰를 표시합니다.
-            }
-        });
-        add(reviewButton);
+		reviewbutton = new JButton(new ImageIcon(Main.class.getResource("../images/review.png")));
+		reviewbutton.setBorderPainted(false);
+		reviewbutton.setContentAreaFilled(false);
+		reviewbutton.setFocusPainted(false);
+		reviewbutton.setBounds(180, 428, 180, 72); // 버튼 위치와 크기 설정
+		reviewbutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
+				if (isinfor) {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
+				} else {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
+				}
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				if (isinfor) {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review.png")));
+				} else {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor.png")));
+				}
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				if (isinfor) {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
+					// 가게 정보 넣기
+					
+					isinfor = false;
+				} else {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
+					// 리뷰 넣기
+					
+					isinfor = true;
+				}
+
+			}
+		});
+
+		add(Photolabel); // 가게 사진 출력
+		add(menubutton); // 메뉴 버튼 출력
+		add(reviewbutton); // 리뷰 버튼 출력
+
+		repaint();
 	}
 	/*
-	@Override
-    protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		//super.paintComponent(g);
-		//Graphics g = getGraphics();
-		
-		if (restaurant != null) {
-            // 가게 정보 그래픽 처리
-            g.setColor(Color.black);
-            g.drawString(restaurant.GetName() + " 정보", 0, 0);
+	 * @Override protected void paintComponent(Graphics g) {
+	 * super.paintComponent(g); //super.paintComponent(g); //Graphics g =
+	 * getGraphics();
+	 * 
+	 * if (restaurant != null) { // 가게 정보 그래픽 처리 g.setColor(Color.black);
+	 * g.drawString(restaurant.GetName() + " 정보", 0, 0);
+	 * 
+	 * // 별점 출력 ShowStar(restaurant, g);
+	 * 
+	 * // 가게 사진 출력 ShowPhoto(restaurant, g);
+	 * 
+	 * // 가게 메뉴 출력 ShowMenu(restaurant, g); } else { // restaurant이 null일 때의 처리 (예:
+	 * 오류 메시지 출력 등) g.setColor(Color.red); g.drawString("가게 정보를 찾을 수 없습니다.", 0, 0);
+	 * }
+	 * 
+	 * // 가게 정보 그래픽 처리 //g.setColor(Color.black);
+	 * //g.drawString(restaurant.GetName() + " 정보", 0, 0); // 좌표설정 아직안함
+	 * //g.drawString(r.GetBussinessHour(), , ABORT); //g.drawString(r.GetTel(),
+	 * ALLBITS, ABORT); //g.drawString(r.GetRestday(), ALLBITS, ABORT); if
+	 * (restaurant != null && restaurant.getReviews() != null) { ShowReview(g,
+	 * restaurant.getReviews()); } }
+	 */
 
-            // 별점 출력
-            ShowStar(restaurant, g);
-
-            // 가게 사진 출력
-            ShowPhoto(restaurant, g);
-
-            // 가게 메뉴 출력
-            ShowMenu(restaurant, g);
-        } else {
-            // restaurant이 null일 때의 처리 (예: 오류 메시지 출력 등)
-            g.setColor(Color.red);
-            g.drawString("가게 정보를 찾을 수 없습니다.", 0, 0);
-        }
-		
-		// 가게 정보 그래픽 처리
-        //g.setColor(Color.black);
-        //g.drawString(restaurant.GetName() + " 정보", 0, 0); // 좌표설정 아직안함
-		//g.drawString(r.GetBussinessHour(), , ABORT);
-		//g.drawString(r.GetTel(), ALLBITS, ABORT);
-		//g.drawString(r.GetRestday(), ALLBITS, ABORT);
-		if (restaurant != null && restaurant.getReviews() != null) {
-			ShowReview(g, restaurant.getReviews());
-        }
-	}
-	*/
-
-	
-	
 	void ShowStar(Restaurant r, Graphics g) { // 가게 별점 출력
 		Image Star0 = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage(); // 별사진 받기
 		Image Star05 = new ImageIcon(Main.class.getResource("../images/helf.png")).getImage();
@@ -187,14 +254,15 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	void ShowMenu(Restaurant r, Graphics g) { // 가게 메뉴 출력하기
 		g.drawImage(r.GetMenu(), 0, 72, 360, 150, null);
 	}
+
 	void ShowReview(Graphics g, Map<String, String> reviews) {
-        int y = 350; // 시작 y 좌표
-        for (Map.Entry<String, String> entry : reviews.entrySet()) {
-            String user = entry.getKey();
-            String review = entry.getValue();
-            g.drawString(user + ": " + review, 10, y);
-            y += 15; // 다음 리뷰를 위해 y 좌표를 증가
-        }
-    }
+		int y = 350; // 시작 y 좌표
+		for (Map.Entry<String, String> entry : reviews.entrySet()) {
+			String user = entry.getKey();
+			String review = entry.getValue();
+			g.drawString(user + ": " + review, 10, y);
+			y += 15; // 다음 리뷰를 위해 y 좌표를 증가
+		}
+	}
 
 }

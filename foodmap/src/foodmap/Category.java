@@ -25,19 +25,19 @@ public class Category extends JPanel {
 	private JButton Sseonybutton = new JButton("써니");
 
 	private JLabel Cfoodlabel = new JLabel(Cfood);// 중식 카테고리 라벨
-	private JButton Chowonbutton = new JButton("A"); // 중식 식당 버튼들
-	private JButton Yongbutton = new JButton("B");
-	private JButton Soosinbutton = new JButton("C");
-	private JButton Bohwabutton = new JButton("D");
+	private JButton Chowonbutton = new JButton("초원"); // 중식 식당 버튼들
+	private JButton Yongbutton = new JButton("용짬뽕");
+	private JButton Soosinbutton = new JButton("수신반점");
+	private JButton Bohwabutton = new JButton("보화 중화요리");
 
 	private JLabel Jfoodlabel = new JLabel(Jfood); // 일식 카테고리 라벨
-	private JButton Wellbutton = new JButton("A"); // 일식 식당 버튼들
+	private JButton Wellbutton = new JButton("웰돈카츠"); // 일식 식당 버튼들
 
 	private JLabel Wfoodlabel = new JLabel(Wfood); // 일식 카테고리 라벨
-	private JButton Yogitbutton = new JButton("A"); // 일식 식당 버튼들
+	private JButton Yogitbutton = new JButton("요깃"); // 일식 식당 버튼들
 
 	private JLabel Sfoodlabel = new JLabel(Sfood); // 중식 카테고리 라벨
-	private JButton Sinjeonbutton = new JButton("A"); // 중식 식당 버튼
+	private JButton Sinjeonbutton = new JButton("신전떡볶이"); // 중식 식당 버튼
 	
 	
 	public Category(Foodmap foodmap) 
@@ -65,6 +65,7 @@ public class Category extends JPanel {
 		Jeulgyeobutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				foodmap.changerest("즐겨먹기");
 				// 즐겨먹기 버튼 눌렀을 때
 			}
 		});
@@ -76,6 +77,7 @@ public class Category extends JPanel {
 		Hansotbutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				foodmap.changerest("한솥도시락");
 				// 한솥 버튼 눌렀을 때
 			}
 		});
@@ -87,6 +89,7 @@ public class Category extends JPanel {
 		Sseonybutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
+				foodmap.changerest("써니숯불도시락");
 				// 써니 버튼 눌렀을 때
 			}
 		});
@@ -100,6 +103,7 @@ public class Category extends JPanel {
 		Chowonbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				foodmap.changerest("초원");
 				// 초원 버튼 눌렀을 때
 			}
 		});
@@ -110,6 +114,7 @@ public class Category extends JPanel {
 		Yongbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				foodmap.changerest("용짬뽕");
 				// 용짬뽕 버튼 눌렀을 때
 			}
 		});
@@ -120,6 +125,7 @@ public class Category extends JPanel {
 		Soosinbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				foodmap.changerest("수신반점");
 				// 수신 버튼 눌렀을 때
 			}
 		});
@@ -130,6 +136,7 @@ public class Category extends JPanel {
 		Bohwabutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				foodmap.changerest("보화 중화요리");
 				// 보화 버튼 눌렀을 때
 			}
 		});
@@ -143,7 +150,8 @@ public class Category extends JPanel {
 		Wellbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 초원 버튼 눌렀을 때
+				foodmap.changerest("웰돈카츠");
+				// 웰돈카츠 버튼 눌렀을 때
 			}
 		});
 
@@ -156,7 +164,8 @@ public class Category extends JPanel {
 		Yogitbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 초원 버튼 눌렀을 때
+				foodmap.changerest("요깃");
+				// 요깃 버튼 눌렀을 때
 			}
 		});
 
@@ -169,7 +178,8 @@ public class Category extends JPanel {
 		Sinjeonbutton.addMouseListener(new MouseAdapter() { // 재정의
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 초원 버튼 눌렀을 때
+				foodmap.changerest("신전떡볶이");
+				// 신전 버튼 눌렀을 때
 			}
 		});
 		

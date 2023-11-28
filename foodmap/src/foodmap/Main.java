@@ -60,7 +60,7 @@ public class Main {
 		Restaurant Bohwa = new Restaurant(8, "보화 중화요리", "10:00~20:00", "041-569-3703", "정보 미등록",
 				"충남 천안시 동남구 병천면 충절로 1700");
 		Bohwa.SetMenu("../images/store.png");
-		Bohwa.SetPhoto("../images/store.png");
+		Bohwa.SetPhoto("../images/bohwa.png");
 
 		Restaurant Yogit = new Restaurant(9, "요깃", "10:30~14:30", "0507-1370-7998", "매주 주말", "충남 천안시 동남구 병천면 가전7길 4");
 		Yogit.SetMenu("../images/yogit.png");
@@ -86,7 +86,7 @@ public class Main {
 		V.add(Yogit);
 		V.add(Sinjeon);
 		V.add(Well);
-		
+		/*
 		Vector<Restaurant> K = new Vector<Restaurant>(); // 한식 리스트 저장
 		Vector<Restaurant> W = new Vector<Restaurant>(); // 양식 리스트 저장
 		Vector<Restaurant> C = new Vector<Restaurant>(); // 중식 리스트 저장
@@ -106,6 +106,7 @@ public class Main {
 				S.add(V.get(i));
 			}
 		}
+		*/
 	}
 
 	public Restaurant getResturantInfo(String name) {
