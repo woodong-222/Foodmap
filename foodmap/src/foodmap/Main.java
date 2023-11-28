@@ -27,53 +27,53 @@ public class Main {
 	public void initializeData() {
 		Resturant Wang = new Resturant(1, "왕십리 야식", "11:00~23:00", "041-564-2848", "연중무휴", "충남 천안시 동남구 병천면 병천리 162-1");// 객체
 		// 찍기
-		Wang.SetMenu("../images/wang.jpg");// 메뉴사진등록
-		Wang.SetPhoto("사진 url");// 가게사진 등록
+		Wang.SetMenu("../images/wang.png");// 메뉴사진등록
+		Wang.SetPhoto("../images/store.png");// 가게사진 등록
 
 		Resturant Jeulgyeo = new Resturant(2, "즐겨먹기", "11:00~20:00", "041-522-0122", "매주 토요일",
 				"충남 천안시 동남구 병천면 충절로 1578");
-		Jeulgyeo.SetMenu("jeulgyeo");
-		Jeulgyeo.SetPhoto("사진 url");
+		Jeulgyeo.SetMenu("../images/jeulgyeo.png");
+		Jeulgyeo.SetPhoto("../images/jeulgyeo.store.png");
 
 		Resturant Hansot = new Resturant(3, "한솥도시락", "09:00~21:00", "041-523-1123", "연중무휴",
 				"충남 천안시 동남구 병천면 가전리 177-15");
-		Hansot.SetMenu("hansot");
-		Hansot.SetPhoto("사진 url");
+		Hansot.SetMenu("../images/hansot.png");
+		Hansot.SetPhoto("../images/hansot.store.png");
 
 		Resturant Sseony = new Resturant(4, "써니숯불도시락", "11:00~20:30", "041-554-8951", "연중무휴",
 				"충남 천안시 동남구 병천면 가전리 206-3");
-		Sseony.SetMenu("sseony");
-		Sseony.SetPhoto("사진 url");
+		Sseony.SetMenu("../images/sseony.png");
+		Sseony.SetPhoto("../images/store.png");
 
 		Resturant Chowon = new Resturant(5, "초원", "17:00~04:00", "041-569-4404", "연중무휴", "충남 천안시 동남구 병천면 가전8길 81");
-		Chowon.SetMenu("chowon");
-		Chowon.SetPhoto("사진 url");
+		Chowon.SetMenu("../images/chowon.png");
+		Chowon.SetPhoto("../images/store.png");
 
 		Resturant Yong = new Resturant(6, "용짬뽕", "10:00~20:20", "041-908-9080", "매주 화요일", "충남 천안시 동남구 병천면 충절로 1578");
-		Yong.SetMenu("yong");
-		Yong.SetPhoto("사진 url");
+		Yong.SetMenu("../images/yong.png");
+		Yong.SetPhoto("../images/yong.store.png");
 
 		Resturant Soosin = new Resturant(7, "수신반점", "11:00~15:00", "041-522-3722", "매주 월요일", "충남 천안시 동남구 병천면 충절로 1614");
-		Soosin.SetMenu("soosin");
-		Soosin.SetPhoto("사진 url");
+		Soosin.SetMenu("../images/soosin.png");
+		Soosin.SetPhoto("../images/soosin.store.png");
 
 		Resturant Bohwa = new Resturant(8, "보화 중화요리", "10:00~20:00", "041-569-3703", "정보 미등록",
 				"충남 천안시 동남구 병천면 충절로 1700");
-		Bohwa.SetMenu("bohwa");
-		Bohwa.SetPhoto("사진 url");
+		Bohwa.SetMenu("../imajes/bohwa.png");
+		Bohwa.SetPhoto("../imajes/store.png");
 
 		Resturant Yogit = new Resturant(9, "요깃", "10:30~14:30", "0507-1370-7998", "매주 주말", "충남 천안시 동남구 병천면 가전7길 4");
-		Yogit.SetMenu("yogit");
-		Yogit.SetPhoto("사진 url");
+		Yogit.SetMenu("../images/yogit.png");
+		Yogit.SetPhoto("../images/yogit.store.png");
 
 		Resturant Sinjeon = new Resturant(10, "신전떡볶이", "11:00~23:40", "041-552-5512", "매주 토요일",
 				"충남 천안시 동남구 병천면 가전6길 6");
-		Sinjeon.SetMenu("sinjeon");
-		Sinjeon.SetPhoto("사진 url");
+		Sinjeon.SetMenu("../images/sinjeon.png");
+		Sinjeon.SetPhoto("../images/sinjeon.store.png");
 
 		Resturant Well = new Resturant(11, "웰돈카츠", "11:00~20:40", "0508-8189-8646", "정보 미등록", "충남 천안시 동남구 병천면 병천리 294");
-		Well.SetMenu("well");
-		Well.SetPhoto("사진 url");
+		Well.SetMenu("../images/well.png");
+		Well.SetPhoto("../images/well.store.png");
 
 		V.add(Wang);// 객체 만들었으면 벡터에 추가하기
 		V.add(Jeulgyeo);
