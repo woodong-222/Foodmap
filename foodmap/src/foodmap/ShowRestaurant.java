@@ -40,7 +40,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
         });
         add(reviewButton);
 	}
-	
+	/*
 	@Override
     protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -76,7 +76,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			ShowReview(g, restaurant.getReviews());
         }
 	}
-	
+	*/
 
 	
 	

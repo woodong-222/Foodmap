@@ -28,6 +28,9 @@ public class Foodmap extends JFrame {
 	public Category category = new Category(this);
 	public ShowRestaurant showresturant;
 	
+
+	NaverMap naverMap = new NaverMap(this);
+	
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
 
@@ -76,7 +79,6 @@ public class Foodmap extends JFrame {
 		setLayout(null);
 	
 		
-		NaverMap naverMap = new NaverMap(this);
 
 		// 홈 버튼
 		homebutton.setBounds(900, 20, 65, 65); // 버튼 위치 및 사이즈
@@ -377,6 +379,9 @@ public class Foodmap extends JFrame {
 		Restaurant restaurant = Main.getInstance().getResturantInfo(rest);
     	showresturant = new ShowRestaurant(this, restaurant);
     	setContentPane(showresturant);
+    	
+    	address = restaurant.getaddress();
+		naverMap.actionPerformed(null);
 		el_add();
         revalidate();
         repaint();

@@ -34,6 +34,10 @@ public class Restaurant extends Share {
 		this.reviews = new HashMap<>();
 	}
 	
+	public String getaddress() {
+		return Address;
+	}
+	
 	public void addReview(String user, String review) {
         reviews.put(user, review);
     }
