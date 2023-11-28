@@ -21,8 +21,8 @@ public class Category extends JPanel {
 	private JLabel Kfoodlabel = new JLabel(Kfood); // 한식 카테고리 라벨
 	private JButton Wangbutton = new JButton("왕십리 야식"); // 한식 식당 버튼들
 	private JButton Jeulgyeobutton = new JButton("즐겨먹기");
-	private JButton Hansotbutton = new JButton("한솥 도시락");
-	private JButton Sseonybutton = new JButton("써니");
+	private JButton Hansotbutton = new JButton("한솥도시락");
+	private JButton Sseonybutton = new JButton("써니숯불도시락");
 
 	private JLabel Cfoodlabel = new JLabel(Cfood);// 중식 카테고리 라벨
 	private JButton Chowonbutton = new JButton("초원"); // 중식 식당 버튼들
