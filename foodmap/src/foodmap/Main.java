@@ -7,7 +7,7 @@ public class Main {
 	public static final int SCREEN_WIDTH = 1060;
 	public static final int SCREEN_HEIGHT = 500;
 
-	static Vector<Resturant> V = new Vector<Resturant>();
+	static Vector<Restaurant> V = new Vector<Restaurant>();
 	
 	private static Main main_instance = null;
 	   
@@ -25,53 +25,53 @@ public class Main {
 		   }
 
 	public void initializeData() {
-		Resturant Wang = new Resturant(1, "왕십리 야식", "11:00~23:00", "041-564-2848", "연중무휴", "충남 천안시 동남구 병천면 병천리 162-1");// 객체
+		Restaurant Wang = new Restaurant(1, "왕십리 야식", "11:00~23:00", "041-564-2848", "연중무휴", "충남 천안시 동남구 병천면 병천리 162-1");// 객체
 		// 찍기
 		Wang.SetMenu("../images/wang.png");// 메뉴사진등록
 		Wang.SetPhoto("../images/store.png");// 가게사진 등록
 
-		Resturant Jeulgyeo = new Resturant(2, "즐겨먹기", "11:00~20:00", "041-522-0122", "매주 토요일",
+		Restaurant Jeulgyeo = new Restaurant(2, "즐겨먹기", "11:00~20:00", "041-522-0122", "매주 토요일",
 				"충남 천안시 동남구 병천면 충절로 1578");
 		Jeulgyeo.SetMenu("../images/jeulgyeo.png");
 		Jeulgyeo.SetPhoto("../images/jeulgyeo.store.png");
 
-		Resturant Hansot = new Resturant(3, "한솥도시락", "09:00~21:00", "041-523-1123", "연중무휴",
+		Restaurant Hansot = new Restaurant(3, "한솥도시락", "09:00~21:00", "041-523-1123", "연중무휴",
 				"충남 천안시 동남구 병천면 가전리 177-15");
 		Hansot.SetMenu("../images/hansot.png");
 		Hansot.SetPhoto("../images/hansot.store.png");
 
-		Resturant Sseony = new Resturant(4, "써니숯불도시락", "11:00~20:30", "041-554-8951", "연중무휴",
+		Restaurant Sseony = new Restaurant(4, "써니숯불도시락", "11:00~20:30", "041-554-8951", "연중무휴",
 				"충남 천안시 동남구 병천면 가전리 206-3");
 		Sseony.SetMenu("../images/sseony.png");
 		Sseony.SetPhoto("../images/store.png");
 
-		Resturant Chowon = new Resturant(5, "초원", "17:00~04:00", "041-569-4404", "연중무휴", "충남 천안시 동남구 병천면 가전8길 81");
+		Restaurant Chowon = new Restaurant(5, "초원", "17:00~04:00", "041-569-4404", "연중무휴", "충남 천안시 동남구 병천면 가전8길 81");
 		Chowon.SetMenu("../images/chowon.png");
 		Chowon.SetPhoto("../images/store.png");
 
-		Resturant Yong = new Resturant(6, "용짬뽕", "10:00~20:20", "041-908-9080", "매주 화요일", "충남 천안시 동남구 병천면 충절로 1578");
+		Restaurant Yong = new Restaurant(6, "용짬뽕", "10:00~20:20", "041-908-9080", "매주 화요일", "충남 천안시 동남구 병천면 충절로 1578");
 		Yong.SetMenu("../images/yong.png");
 		Yong.SetPhoto("../images/yong.store.png");
 
-		Resturant Soosin = new Resturant(7, "수신반점", "11:00~15:00", "041-522-3722", "매주 월요일", "충남 천안시 동남구 병천면 충절로 1614");
+		Restaurant Soosin = new Restaurant(7, "수신반점", "11:00~15:00", "041-522-3722", "매주 월요일", "충남 천안시 동남구 병천면 충절로 1614");
 		Soosin.SetMenu("../images/soosin.png");
 		Soosin.SetPhoto("../images/soosin.store.png");
 
-		Resturant Bohwa = new Resturant(8, "보화 중화요리", "10:00~20:00", "041-569-3703", "정보 미등록",
+		Restaurant Bohwa = new Restaurant(8, "보화 중화요리", "10:00~20:00", "041-569-3703", "정보 미등록",
 				"충남 천안시 동남구 병천면 충절로 1700");
 		Bohwa.SetMenu("../imajes/bohwa.png");
 		Bohwa.SetPhoto("../imajes/store.png");
 
-		Resturant Yogit = new Resturant(9, "요깃", "10:30~14:30", "0507-1370-7998", "매주 주말", "충남 천안시 동남구 병천면 가전7길 4");
+		Restaurant Yogit = new Restaurant(9, "요깃", "10:30~14:30", "0507-1370-7998", "매주 주말", "충남 천안시 동남구 병천면 가전7길 4");
 		Yogit.SetMenu("../images/yogit.png");
 		Yogit.SetPhoto("../images/yogit.store.png");
 
-		Resturant Sinjeon = new Resturant(10, "신전떡볶이", "11:00~23:40", "041-552-5512", "매주 토요일",
+		Restaurant Sinjeon = new Restaurant(10, "신전떡볶이", "11:00~23:40", "041-552-5512", "매주 토요일",
 				"충남 천안시 동남구 병천면 가전6길 6");
 		Sinjeon.SetMenu("../images/sinjeon.png");
 		Sinjeon.SetPhoto("../images/sinjeon.store.png");
 
-		Resturant Well = new Resturant(11, "웰돈카츠", "11:00~20:40", "0508-8189-8646", "정보 미등록", "충남 천안시 동남구 병천면 병천리 294");
+		Restaurant Well = new Restaurant(11, "웰돈카츠", "11:00~20:40", "0508-8189-8646", "정보 미등록", "충남 천안시 동남구 병천면 병천리 294");
 		Well.SetMenu("../images/well.png");
 		Well.SetPhoto("../images/well.store.png");
 
@@ -87,11 +87,11 @@ public class Main {
 		V.add(Sinjeon);
 		V.add(Well);
 		
-		Vector<Resturant> K = new Vector<Resturant>(); // 한식 리스트 저장
-		Vector<Resturant> W = new Vector<Resturant>(); // 양식 리스트 저장
-		Vector<Resturant> C = new Vector<Resturant>(); // 중식 리스트 저장
-		Vector<Resturant> J = new Vector<Resturant>(); // 일식 리스트 저장
-		Vector<Resturant> S = new Vector<Resturant>(); // 분식 리스트 저장
+		Vector<Restaurant> K = new Vector<Restaurant>(); // 한식 리스트 저장
+		Vector<Restaurant> W = new Vector<Restaurant>(); // 양식 리스트 저장
+		Vector<Restaurant> C = new Vector<Restaurant>(); // 중식 리스트 저장
+		Vector<Restaurant> J = new Vector<Restaurant>(); // 일식 리스트 저장
+		Vector<Restaurant> S = new Vector<Restaurant>(); // 분식 리스트 저장
 
 		for (int i = 0; i < V.size(); i++) {
 			if (V.get(i).GetType() == 1) {
@@ -108,9 +108,9 @@ public class Main {
 		}
 	}
 
-	public Resturant getResturantInfo(String name) {
+	public Restaurant getResturantInfo(String name) {
 		// 벡터에 저장된 가게 정보를 조회하면서 이름이 일치하는 가게를 찾아 반환
-		for (Resturant r : V) {
+		for (Restaurant r : V) {
 			if (r.GetName().equals(name)) {
 				return r;
 			}

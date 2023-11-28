@@ -26,7 +26,7 @@ public class Foodmap extends JFrame {
 	// Jpanel들 객체 지정
 	private JPanel button;
 	public Category category = new Category(this);
-	public ShowResturant showresturant;
+	public ShowRestaurant showresturant;
 	
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
@@ -374,8 +374,8 @@ public class Foodmap extends JFrame {
 	}
 	public void changerest(String rest) { // 가게 버튼
 		//showresturant.removeAll();
-		Resturant resturant = Main.getInstance().getResturantInfo(rest);
-    	showresturant = new ShowResturant(this, resturant);
+		Restaurant restaurant = Main.getInstance().getResturantInfo(rest);
+    	showresturant = new ShowRestaurant(this, restaurant);
     	setContentPane(showresturant);
 		el_add();
         revalidate();
