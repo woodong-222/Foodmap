@@ -35,7 +35,7 @@ public class Heart {
       }
    }
    
-   void Share() {//파일입출력으로 구현
+   void Share(Graphics g) {//파일입출력으로 구현
 	   try (BufferedWriter writer = new BufferedWriter(new FileWriter("찜리스트.txt"))) {
            Iterator<String> keys = HeartList.keySet().iterator();
            while (keys.hasNext()) {
@@ -43,9 +43,10 @@ public class Heart {
                writer.write("[가게 이름]:" + key + " [주소]:" + HeartList.get(key));
                writer.newLine();
            }
-           System.out.println("찜리스트가 성공적으로 저장되었습니다.");
+           g.drawString("찜리스트가 성공적으로 저장되었습니다.", 0, 0);
+         
        } catch (IOException e) {
-           System.err.println("파일 저장 중 오류가 발생했습니다: " + e.getMessage());
+    	   g.drawString("오류 발생" + e.getMessage(), 0, 0);
        }
    }
 }
