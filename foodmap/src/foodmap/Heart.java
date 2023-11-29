@@ -1,20 +1,35 @@
 package foodmap;
 
-import java.awt.Graphics;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.awt.Image;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Set;
 
-public class Heart {
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+public class Heart extends JPanel {
    HashMap<String, String> HeartList = new HashMap <String, String> ();
+   private JLabel namelabel;
+   private JButton sharebutton;
+   private JButton[] likedbutton = new JButton[10];
+   private Restaurant r;
+   private JTextArea text; // 주소
+   
+   public Heart() {
+       for (int i = 0; i < 10; i++) {
+           likedbutton[i] = new JButton(); // 버튼 초기화
+       }
+   }
    
    void Like(Restaurant r) { 
 		if(r.GetLike()== false) {//좋아요 안눌려있을 때
@@ -27,15 +42,66 @@ public class Heart {
 		}
 	}
    
-   void PrintHeartList(Graphics g) { // 찜목록 출력
-      Iterator<String> keys = HeartList.keySet().iterator();
-      while(keys.hasNext()){
-          String key = keys.next();
-          g.drawString("[가게 이름]:" + key + " [주소]:" +  HeartList.get(key), 0, 0);
-      }
+   void ShowHeartList(Foodmap foodmap, Restaurant r) { // 찜목록 출력
+	   this.r = r;
+	   namelabel = new JLabel("찜 리스트");
+	   namelabel.setHorizontalAlignment(JLabel.CENTER);
+	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+	   namelabel.setBounds(0, 0, 360, 72);
+	   
+	   add(namelabel);
+	   Iterator<String> keys = HeartList.keySet().iterator();
+	   
+	   for(int i=0; i<10; i++) {
+		   if(keys.hasNext() == false) break;
+		   likedbutton[i].setBounds(10, 72 + i * 40, 280, 30);//좌표설정할거임
+		   String key = keys.next();
+		   likedbutton[i].setText("[가게 이름]:" + key + " [주소]:" +  HeartList.get(key));
+		   
+		   likedbutton[i].addActionListener(new ActionListener() {
+		        @Override
+		        public void actionPerformed(ActionEvent e) {//버튼 눌렀을 때
+		        	if (!HeartList.isEmpty()) {
+		        	    Set<String> keySet = HeartList.keySet();
+		        	    Iterator<String> keyIterator = keySet.iterator();		        	    
+		        	    foodmap.changerest(keyIterator.next());
+		        	}
+		        }
+		    });
+		   
+		   add(likedbutton[i]);
+	       
+	   }
+	   
+	   
+		sharebutton = new JButton("공유");
+		// sharebutton.setBorderPainted(false);
+		// sharebutton.setContentAreaFilled(false);
+		// sharebutton.setFocusPainted(false);
+		sharebutton.setBounds(288, 72, 32, 32); // 버튼 위치와 크기 설정
+		sharebutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
+				sharebutton.setText("공유2");
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
+				sharebutton.setText("공유1");
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				// 공유기능
+				Share();
+			}
+		});	   
    }
    
-   void Share(Graphics g) {//파일입출력으로 구현
+   
+   
+   
+   void Share() {//파일입출력으로 구현
 	   try (BufferedWriter writer = new BufferedWriter(new FileWriter("찜리스트.txt"))) {
            Iterator<String> keys = HeartList.keySet().iterator();
            while (keys.hasNext()) {
@@ -43,10 +109,10 @@ public class Heart {
                writer.write("[가게 이름]:" + key + " [주소]:" + HeartList.get(key));
                writer.newLine();
            }
-           g.drawString("찜리스트가 성공적으로 저장되었습니다.", 0, 0);
+           //g.drawString("찜리스트가 성공적으로 저장되었습니다.", 0, 0);
          
        } catch (IOException e) {
-    	   g.drawString("오류 발생" + e.getMessage(), 0, 0);
+    	   //g.drawString("오류 발생" + e.getMessage(), 0, 0);
        }
    }
 }
