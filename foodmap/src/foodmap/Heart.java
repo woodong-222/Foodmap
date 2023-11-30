@@ -22,13 +22,13 @@ public class Heart extends JPanel {
    private JLabel namelabel;
    private JButton sharebutton;
    private JButton[] likedbutton = new JButton[10];
-   private Restaurant r;
-   private JTextArea text; // 주소
+   Foodmap f;
    
-   public Heart() {
+   public Heart(Foodmap foodmap) {
        for (int i = 0; i < 10; i++) {
            likedbutton[i] = new JButton(); // 버튼 초기화
        }
+       f = foodmap;
    }
    
    void Like(Restaurant r) { 
@@ -42,9 +42,10 @@ public class Heart extends JPanel {
 		}
 	}
    
-   void ShowHeartList(Foodmap foodmap, Restaurant r) { // 찜목록 출력
-	   this.r = r;
-	   namelabel = new JLabel("찜 리스트");
+   void ShowHeartList(String name) { // 찜목록 출력
+	   setLayout(null);
+	   setBounds(0, 0, 360, 500);
+	   namelabel = new JLabel(name);
 	   namelabel.setHorizontalAlignment(JLabel.CENTER);
 	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 	   namelabel.setBounds(0, 0, 360, 72);
@@ -64,7 +65,7 @@ public class Heart extends JPanel {
 		        	if (!HeartList.isEmpty()) {
 		        	    Set<String> keySet = HeartList.keySet();
 		        	    Iterator<String> keyIterator = keySet.iterator();		        	    
-		        	    foodmap.changerest(keyIterator.next());
+		        	    f.changerest(keyIterator.next());
 		        	}
 		        }
 		    });

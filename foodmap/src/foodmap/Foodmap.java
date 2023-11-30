@@ -1,12 +1,12 @@
 package foodmap;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import foodmap.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -52,6 +52,7 @@ public class Foodmap extends JFrame {
 	private ImageIcon PBasicbutton = new ImageIcon(Main.class.getResource("../images/plu.png"));
 	private ImageIcon MEnteredbutton = new ImageIcon(Main.class.getResource("../images/min2.png"));
 	private ImageIcon MBasicbutton = new ImageIcon(Main.class.getResource("../images/min.png"));
+	Heart heart = new Heart(this);
 
 	// 버튼 생성
 	private JButton homebutton = new JButton(homeBasicbutton); // 홈버튼 생성
@@ -117,6 +118,8 @@ public class Foodmap extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 찜 버튼 눌렀을 때
+				change("찜 리스트");
+				
 			}
 		});
 		// + 버튼
@@ -379,6 +382,13 @@ public class Foodmap extends JFrame {
 
 		address = restaurant.getaddress();
 		naverMap.actionPerformed(null);
+		el_add();
+		revalidate();
+		repaint();
+	}
+	public void change(String name) {
+		heart.ShowHeartList(name);
+		setContentPane(heart);
 		el_add();
 		revalidate();
 		repaint();
