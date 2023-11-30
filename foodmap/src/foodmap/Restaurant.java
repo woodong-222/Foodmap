@@ -21,6 +21,8 @@ public class Restaurant extends Share {
 	private boolean Like = false;
 	private Image Menu;
 	private Image Photo;
+	private Image bigMenu;
+	private Image bigPhoto;
 	private int cnt = 0;	
     private Map<String, String> reviews; // 리뷰를 저장할 해시맵
 
@@ -95,12 +97,25 @@ public class Restaurant extends Share {
 	void SetPhoto ( String photo) {//가게 사진 입력받기
 		Photo = new ImageIcon(Main.class.getResource(photo)).getImage();
 	}
+	void SetbigMenu( String menu ) { //가게 메뉴 입력받기
+		bigMenu = new ImageIcon(Main.class.getResource(menu)).getImage();
+	}
+	
+	void SetbigPhoto ( String photo) {//가게 사진 입력받기
+		bigPhoto = new ImageIcon(Main.class.getResource(photo)).getImage();
+	}
 	
 	public Image GetMenu() {
 		return Menu;
 	}
 	public Image GetPhoto() {
 		return Photo;
+	}
+	public Image GetbigMenu() {
+		return bigMenu;
+	}
+	public Image GetbigPhoto() {
+		return bigPhoto;
 	}
 	
 	void ShowReview() {//리뷰 보여주기

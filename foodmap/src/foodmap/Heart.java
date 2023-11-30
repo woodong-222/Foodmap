@@ -42,10 +42,10 @@ public class Heart extends JPanel {
 		}
 	}
    
-   void ShowHeartList(String name) { // 찜목록 출력
+   void ShowHeartList() { // 찜목록 출력
 	   setLayout(null);
 	   setBounds(0, 0, 360, 500);
-	   namelabel = new JLabel(name);
+	   namelabel = new JLabel("찜리스트");
 	   namelabel.setHorizontalAlignment(JLabel.CENTER);
 	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
 	   namelabel.setBounds(0, 0, 360, 72);

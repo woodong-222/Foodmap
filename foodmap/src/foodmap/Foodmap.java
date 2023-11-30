@@ -1,12 +1,12 @@
 package foodmap;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import foodmap.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -29,6 +29,7 @@ public class Foodmap extends JFrame {
 	public ShowRestaurant showresturant;
 
 	NaverMap naverMap = new NaverMap(this);
+	Heart heart = new Heart(this);
 
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
@@ -52,7 +53,6 @@ public class Foodmap extends JFrame {
 	private ImageIcon PBasicbutton = new ImageIcon(Main.class.getResource("../images/plu.png"));
 	private ImageIcon MEnteredbutton = new ImageIcon(Main.class.getResource("../images/min2.png"));
 	private ImageIcon MBasicbutton = new ImageIcon(Main.class.getResource("../images/min.png"));
-	Heart heart = new Heart(this);
 
 	// 버튼 생성
 	private JButton homebutton = new JButton(homeBasicbutton); // 홈버튼 생성
@@ -66,7 +66,7 @@ public class Foodmap extends JFrame {
 	private JButton Mbutton = new JButton(MBasicbutton);
 
 	public Foodmap() {
-		// setUndecorated(true); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
+		// setUndecorated(false); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
 		setTitle("Food Map"); // 타이틀
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // 사이즈 설정
 		setResizable(false); // 사이즈 변경 불가능
@@ -118,8 +118,7 @@ public class Foodmap extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 찜 버튼 눌렀을 때
-				change("찜 리스트");
-				
+				change();
 			}
 		});
 		// + 버튼
@@ -313,7 +312,7 @@ public class Foodmap extends JFrame {
 		button.add(Sfoodbutton);
 		// button.setBackground(Color.yellow);
 
-		Timer timer = new Timer(3000, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
+		Timer timer = new Timer(0001, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
 			public void actionPerformed(ActionEvent e) {
 				Background = null; // 배경 숨기기
 
@@ -386,8 +385,9 @@ public class Foodmap extends JFrame {
 		revalidate();
 		repaint();
 	}
-	public void change(String name) {
-		heart.ShowHeartList(name);
+
+	public void change() {
+		heart.ShowHeartList();
 		setContentPane(heart);
 		el_add();
 		revalidate();
