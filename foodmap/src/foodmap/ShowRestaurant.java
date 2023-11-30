@@ -11,6 +11,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -213,7 +214,13 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 				} else {
 					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
 					// 리뷰 넣기
-
+					
+					//리뷰쓰기가 필요 -> 여기서 별점
+					/*
+					Review dialog = new Review();
+					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+					dialog.setVisible(true);
+					*/
 					text.setVisible(true);
 					repaint();
 					isinfor = true;

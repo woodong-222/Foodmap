@@ -27,10 +27,9 @@ public class Foodmap extends JFrame {
 	private JPanel button;
 	public Category category = new Category(this);
 	public ShowRestaurant showresturant;
-	
 
 	NaverMap naverMap = new NaverMap(this);
-	
+
 	// 로딩, 맵 경로 지정(맵은 바뀔 가능성 많음)
 	private Image Background = new ImageIcon(Main.class.getResource("../images/introBackground.png")).getImage();
 
@@ -65,9 +64,8 @@ public class Foodmap extends JFrame {
 	private JButton Pbutton = new JButton(PBasicbutton);
 	private JButton Mbutton = new JButton(MBasicbutton);
 
-
 	public Foodmap() {
-		setUndecorated(true); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
+		// setUndecorated(true); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
 		setTitle("Food Map"); // 타이틀
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // 사이즈 설정
 		setResizable(false); // 사이즈 변경 불가능
@@ -75,10 +73,8 @@ public class Foodmap extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // 창 종료시 프로그램 종료
 		setVisible(true); // 화면 보임
 
-		setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
+		// setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
 		setLayout(null);
-	
-		
 
 		// 홈 버튼
 		homebutton.setBounds(900, 20, 65, 65); // 버튼 위치 및 사이즈
@@ -145,7 +141,7 @@ public class Foodmap extends JFrame {
 				naverMap.actionPerformed(null); // 지도 새로고침
 			}
 		});
-		
+
 		// - 버튼
 		Mbutton.setBounds(980, 460, 32, 32);
 		Mbutton.setBorderPainted(false);
@@ -191,8 +187,8 @@ public class Foodmap extends JFrame {
 				// 패널 전환
 				Kfoodbutton.setIcon(KfoodBasicbutton);
 				category.removeAll();
-		        category.KfoodCategory();
-		        changeJpanel(1);
+				category.KfoodCategory();
+				changeJpanel(1);
 			}
 		});
 
@@ -217,8 +213,8 @@ public class Foodmap extends JFrame {
 
 				category.removeAll();
 				Cfoodbutton.setIcon(CfoodBasicbutton);
-		        category.CfoodCategory();
-		        changeJpanel(1);
+				category.CfoodCategory();
+				changeJpanel(1);
 			}
 		});
 
@@ -243,8 +239,8 @@ public class Foodmap extends JFrame {
 
 				category.removeAll();
 				Jfoodbutton.setIcon(JfoodBasicbutton);
-		        category.JfoodCategory();
-		        changeJpanel(1);
+				category.JfoodCategory();
+				changeJpanel(1);
 			}
 		});
 
@@ -269,8 +265,8 @@ public class Foodmap extends JFrame {
 
 				category.removeAll();
 				Wfoodbutton.setIcon(WfoodBasicbutton);
-		        category.WfoodCategory();
-		        changeJpanel(1);
+				category.WfoodCategory();
+				changeJpanel(1);
 			}
 		});
 
@@ -295,15 +291,15 @@ public class Foodmap extends JFrame {
 
 				category.removeAll();
 				Sfoodbutton.setIcon(SfoodBasicbutton);
-		        category.SfoodCategory();
-		        changeJpanel(1);
+				category.SfoodCategory();
+				changeJpanel(1);
 			}
 		});
 
 		// JFrame frm = new JFrame();
 		// frm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Container c = frm.getContentPane();
-		
+
 		button = new JPanel();
 		button.setLayout(null);
 		button.setBounds(0, 0, 360, 500);
@@ -312,10 +308,9 @@ public class Foodmap extends JFrame {
 		button.add(Jfoodbutton);
 		button.add(Wfoodbutton);
 		button.add(Sfoodbutton);
-		//button.setBackground(Color.yellow);
+		// button.setBackground(Color.yellow);
 
-		Timer timer = new Timer(0001, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
-			@Override
+		Timer timer = new Timer(3000, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
 			public void actionPerformed(ActionEvent e) {
 				Background = null; // 배경 숨기기
 
@@ -328,7 +323,7 @@ public class Foodmap extends JFrame {
 		timer.start();
 
 		// 지도 관련
-		address = "충절로 1600"; // 도로명 주소를 집어넣음
+		address = "신율로 43"; // 도로명 주소를 집어넣음
 		map = new JLabel(); // 지도 객체 생성
 		map.setBounds(360, -111, 877, 720); // 지도 위치 설정
 
@@ -337,13 +332,12 @@ public class Foodmap extends JFrame {
 
 	}
 
-
 	public void el_add() { // 매 화면 필요한 화면 출력
 		add(homebutton);
 		add(likedbutton);
 		add(Pbutton);
 		add(Mbutton);
-		
+
 		add(map);
 	}
 
@@ -359,33 +353,34 @@ public class Foodmap extends JFrame {
 		paintComponents(g);
 		this.repaint();
 	}
-	
+
 	public void changeJpanel(int paneltype) {
-		if(paneltype == 0) { // 홈버튼
+		if (paneltype == 0) { // 홈버튼
 			setContentPane(button);
 			address = "충절로 1600";
 			naverMap.actionPerformed(null);
 		}
-		if(paneltype == 1){ // 한식, 중식, 일식 등등 버튼
+		if (paneltype == 1) { // 한식, 중식, 일식 등등 버튼
 			setContentPane(category);
 		}
-        if(paneltype == 2) { // 가게 버튼
-        }
+		if (paneltype == 2) { // 가게 버튼
+		}
 
 		el_add();
-        revalidate();
-        repaint();
+		revalidate();
+		repaint();
 	}
+
 	public void changerest(String rest) { // 가게 버튼
-		//showresturant.removeAll();
+		// showresturant.removeAll();
 		Restaurant restaurant = Main.getInstance().getResturantInfo(rest);
-    	showresturant = new ShowRestaurant(this, restaurant);
-    	setContentPane(showresturant);
-    	
-    	address = restaurant.getaddress();
+		showresturant = new ShowRestaurant(this, restaurant);
+		setContentPane(showresturant);
+
+		address = restaurant.getaddress();
 		naverMap.actionPerformed(null);
 		el_add();
-        revalidate();
-        repaint();
+		revalidate();
+		repaint();
 	}
 }

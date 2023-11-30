@@ -4,8 +4,8 @@ import java.util.Vector;
 
 public class Main {
 
-	public static final int SCREEN_WIDTH = 1060;
-	public static final int SCREEN_HEIGHT = 500;
+	public static final int SCREEN_WIDTH = 1080;
+	public static final int SCREEN_HEIGHT = 540;
 
 	static Vector<Restaurant> V = new Vector<Restaurant>();
 	
