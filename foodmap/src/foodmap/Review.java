@@ -2,14 +2,16 @@ package foodmap;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JSpinner;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class Review extends JDialog {
 
@@ -42,9 +44,17 @@ public class Review extends JDialog {
 			}
 		}
 		
-		JSpinner spinner = new JSpinner();
+		/*JSpinner spinner = new JSpinner();
 		spinner.setBounds(365, 36, 30, 22);
 		getContentPane().add(spinner);
+		*/
+		
+        // 스피너 설정 부분
+        SpinnerNumberModel spinnerModel = new SpinnerNumberModel(0.0, 0.0, 5.0, 0.1);
+        JSpinner spinner = new JSpinner(spinnerModel);
+        spinner.setBounds(365, 36, 60, 22);
+        getContentPane().add(spinner);
+
 		
 		JLabel lblNewLabel = new JLabel("별점");
 		lblNewLabel.setBounds(303, 39, 50, 15);
@@ -75,5 +85,15 @@ public class Review extends JDialog {
 		JButton btnNewButton_1 = new JButton("취소");
 		btnNewButton_1.setBounds(242, 144, 91, 23);
 		getContentPane().add(btnNewButton_1);
+		
+		  // "취소" 버튼에 ActionListener 추가
+        btnNewButton_1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // "취소" 버튼이 클릭되면 다이얼로그를 닫음
+                dispose();
+            }
+        });
+		
+		
 	}
 }
