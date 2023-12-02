@@ -3,23 +3,24 @@ package foodmap;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
 
 public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 클래스
 
 	private JButton likedbutton; // 리뷰 보기 버튼
 	private JButton sharebutton; // 메뉴판 보기 버튼
 	private JLabel namelabel;
-	private JButton photobutton;
 	private JLabel photolabel;
 	private JButton reviewbutton; // 리뷰 보기 버튼
 	private JButton menubutton; // 메뉴판 보기 버튼
@@ -37,15 +38,6 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		setBounds(0, 0, 360, 500);
 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
-
-		// 가게 큰 사진
-		ImageIcon bigphoto = new ImageIcon(r.GetbigPhoto());
-		photolabel = new JLabel(bigphoto);
-		photolabel.setLocation(540, 270);
-		photolabel.setHorizontalAlignment(SwingConstants.CENTER); // 사진 가운데 정렬
-		photolabel.setVerticalAlignment(SwingConstants.CENTER);
-		add(photolabel);
-		photolabel.setVisible(false);
 
 		// 가게 이름
 		namelabel = new JLabel(r.GetName() + " 정보");
@@ -129,38 +121,20 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 		// 가게 사진
 		ImageIcon photo = new ImageIcon(r.GetPhoto());
-		photobutton = new JButton(photo);
-		photobutton.setBorderPainted(false);
-		photobutton.setContentAreaFilled(false);
-		photobutton.setFocusPainted(false);
-		photobutton.setBounds(0, 72, 360, 150);
-		photobutton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 사진 확대
-				photolabel.setIcon(bigphoto);
-				// 이미지 컴포넌트를 맨 앞으로 가져오기
-	            setComponentZOrder(photolabel, 0);
-			}
-		});
+		photolabel = new JLabel(photo);
+		photolabel.setBounds(0, 72, 360, 150);
 
-		addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// 마우스 클릭 시 사진 숨기기
-				photolabel.setIcon(null);
-			}
-		});
+	
 
 		// 가게 정보
-		text = new JTextArea("\n\n -영업시간 : " + r.GetBussinessHour() + "\n\n -전화번호 : " + r.GetTel() + "\n\n -휴무일 : "
-				+ r.GetRestday() + "\n\n -주소 : " + r.GetAddress());
+		text = new JTextArea("\n\n -영업시간 : " + r.GetBussinessHour() + "\n\n -전화번호 : " + r.GetTel() + "\n\n -휴무일 : " + r.GetRestday()+"\n\n -주소 : " + r.GetAddress());
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
 		text.setEditable(false);
-		// text.setHorizontalAlignment(JLabel.LEFT);
+		//text.setHorizontalAlignment(JLabel.LEFT);
 		text.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		text.setBounds(0, 222, 360, 420);
+
 
 		// 메뉴판 보기 버튼을 생성하고 추가합니다.
 		menubutton = new JButton(new ImageIcon(Main.class.getResource("../images/menu.png")));
@@ -192,17 +166,30 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 				if (isphoto) {
 					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/photo2.png")));
 					ImageIcon menu = new ImageIcon(r.GetMenu());
-					photobutton.setIcon(menu);
+					photolabel.setIcon(menu);
 					isphoto = false;
 				} else {
 					menubutton.setIcon(new ImageIcon(Main.class.getResource("../images/menu2.png")));
 					ImageIcon photo = new ImageIcon(r.GetPhoto());
-					photobutton.setIcon(photo);
+					photolabel.setIcon(photo);
 					isphoto = true;
 				}
 			}
 		});
 
+		JButton submitButton = new JButton("Submit Review");
+        submitButton.setBounds(323, 227, 32, 32);
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                Review reviewDialog = new Review();
+                reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                reviewDialog.setVisible(true);
+            }
+        });
+        add(submitButton);
+		submitButton.setVisible(false);
+        
 		// 리뷰 보기 버튼을 생성하고 추가합니다.
 		reviewbutton = new JButton(new ImageIcon(Main.class.getResource("../images/review.png")));
 		reviewbutton.setBorderPainted(false);
@@ -233,21 +220,24 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 				if (isinfor) {
 					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
 					// 가게 정보 넣기
-
+					submitButton.setVisible(true);
 					text.setVisible(false);
 					repaint();
 					isinfor = false;
 				} else {
 					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
 					// 리뷰 넣기
-
-					// 리뷰쓰기가 필요 -> 여기서 별점
-					/*
-					 * Review dialog = new Review();
-					 * dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					 * dialog.setVisible(true);
-					 */
+					
+					//리뷰쓰기가 필요 -> 여기서 별점
+					
+					submitButton.setVisible(false);
+					
+			        // 여기에 버튼을 표시하는 코드 추가
+			        // 예를 들어, 버튼을 생성하고 패널에 추가하는 코드를 아래와 같이 작성할 수 있습니다.
 					text.setVisible(true);
+			        
+                             
+					
 					repaint();
 					isinfor = true;
 				}
@@ -255,7 +245,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			}
 		});
 
-		add(photobutton); // 가게 사진 출력
+		add(photolabel); // 가게 사진 출력
 		add(menubutton); // 메뉴 버튼 출력
 		add(reviewbutton); // 리뷰 버튼 출력
 
