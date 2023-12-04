@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -91,20 +92,20 @@ public class Heart extends JPanel {
 	   }
 	   
 	   
-		sharebutton = new JButton("공유");
-		// sharebutton.setBorderPainted(false);
-		// sharebutton.setContentAreaFilled(false);
-		// sharebutton.setFocusPainted(false);
+		sharebutton = new JButton(new ImageIcon(Main.class.getResource("../images/share.png")));
+		sharebutton.setBorderPainted(false);
+		sharebutton.setContentAreaFilled(false);
+		sharebutton.setFocusPainted(false);
 		sharebutton.setBounds(288, 72, 32, 32); // 버튼 위치와 크기 설정
 		sharebutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
-				sharebutton.setText("공유2");
+				sharebutton.setIcon(new ImageIcon(Main.class.getResource("../images/share2.png")));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) { // 마우스 멀어지면
-				sharebutton.setText("공유1");
+				sharebutton.setIcon(new ImageIcon(Main.class.getResource("../images/share.png")));
 			}
 
 			@Override
@@ -113,6 +114,7 @@ public class Heart extends JPanel {
 				Share();
 			}
 		});	   
+		add(sharebutton);
    }
    
    
