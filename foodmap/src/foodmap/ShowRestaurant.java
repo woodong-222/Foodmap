@@ -1,5 +1,6 @@
 package foodmap;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -38,6 +39,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
 		setBounds(0, 0, 360, 500);
+		setBackground(Color.WHITE);
 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
 
