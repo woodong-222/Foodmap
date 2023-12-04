@@ -64,6 +64,7 @@ public class Foodmap extends JFrame {
 	private JButton Sfoodbutton = new JButton(SfoodBasicbutton);
 	private JButton Pbutton = new JButton(PBasicbutton);
 	private JButton Mbutton = new JButton(MBasicbutton);
+	private JLabel intro = new JLabel(new ImageIcon(Main.class.getResource("../images/introBackground.png")));
 
 	public Foodmap() {
 		// setUndecorated(false); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
@@ -77,6 +78,9 @@ public class Foodmap extends JFrame {
 		// setBackground(new Color(0, 0, 0, 0)); // 배경 투명색
 		setLayout(null);
 
+		intro.setBounds(-8, -20, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // 버튼 위치 및 사이즈
+		add(intro);
+		
 		// 홈 버튼
 		homebutton.setBounds(900, 20, 65, 65); // 버튼 위치 및 사이즈
 		homebutton.setBorderPainted(false);
@@ -312,9 +316,9 @@ public class Foodmap extends JFrame {
 		button.add(Sfoodbutton);
 		// button.setBackground(Color.yellow);
 
-		Timer timer = new Timer(0001, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
+		Timer timer = new Timer(3000, new ActionListener() { // 3초뒤에 로딩화면 숨김 -> 이거 나중에 3000으로 수정
 			public void actionPerformed(ActionEvent e) {
-				Background = null; // 배경 숨기기
+				intro.setIcon(null);
 
 				add(button); // 버튼 패널
 				el_add();
@@ -325,7 +329,7 @@ public class Foodmap extends JFrame {
 		timer.start();
 
 		// 지도 관련
-		address = "신율로 43"; // 도로명 주소를 집어넣음
+		address = "충절로 1600"; // 도로명 주소를 집어넣음
 		map = new JLabel(); // 지도 객체 생성
 		map.setBounds(360, -111, 877, 720); // 지도 위치 설정
 
