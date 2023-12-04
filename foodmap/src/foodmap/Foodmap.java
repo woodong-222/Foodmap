@@ -1,8 +1,8 @@
 package foodmap;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -69,6 +69,7 @@ public class Foodmap extends JFrame {
 	public Foodmap() {
 		// setUndecorated(false); // 메뉴바 같은거 안보이게인데 이거 보이게 하고 싶어
 		setTitle("Food Map"); // 타이틀
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Foodmap.class.getResource("/images/logo.png")));
 		setSize(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT); // 사이즈 설정
 		setResizable(false); // 사이즈 변경 불가능
 		setLocationRelativeTo(null); // 컴퓨터 정중앙

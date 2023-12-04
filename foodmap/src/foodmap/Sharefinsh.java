@@ -11,12 +11,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextPane;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import java.awt.Toolkit;
 
 public class Sharefinsh extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 
 	public Sharefinsh() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(Sharefinsh.class.getResource("/images/logo.png")));
         setBounds(100, 100, 291, 132);
         setTitle("공유");
 		setLocationRelativeTo(null); // 컴퓨터 정중앙

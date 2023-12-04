@@ -16,6 +16,8 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import java.awt.Toolkit;
+import java.awt.Color;
 
 public class Review extends JDialog {
 
@@ -24,6 +26,8 @@ public class Review extends JDialog {
     private JTextField textField_1;
 
     public Review() {
+    	setForeground(new Color(255, 255, 255));
+    	setIconImage(Toolkit.getDefaultToolkit().getImage(Review.class.getResource("/images/logo.png")));
         setBounds(100, 100, 450, 218);
         setTitle("리뷰 작성");
 		setLocationRelativeTo(null); // 컴퓨터 정중앙
