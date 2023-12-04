@@ -8,6 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import foodmap.*;
 
@@ -20,14 +25,14 @@ import javax.swing.JTextArea;
 
 public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 클래스
 
+	static HashMap<String, String> Restaurantinfor = new HashMap <String, String> ();
 	private JButton likedbutton; // 리뷰 보기 버튼
 	private JButton sharebutton; // 메뉴판 보기 버튼
 	private JLabel namelabel;
 	private JLabel photolabel;
 	private JButton reviewbutton; // 리뷰 보기 버튼
 	private JButton menubutton; // 메뉴판 보기 버튼
-
-
+	
 	private JTextArea text; // 주소
 
 	private Restaurant restaurant; // Restaurant 인스턴스
@@ -43,6 +48,12 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
 
+		JLabel line = new JLabel(new ImageIcon(Main.class.getResource("../images/line.png")));
+		JLabel line2 = new JLabel(new ImageIcon(Main.class.getResource("../images/line.png")));
+		line.setBounds(0, 70, 360, 2);
+		add(line);
+		line2.setBounds(0, 222, 360, 2);
+		add(line2);
 		// 가게 이름
 		namelabel = new JLabel(r.GetName() + " 정보");
 		namelabel.setHorizontalAlignment(JLabel.CENTER);
@@ -70,7 +81,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 공유기능
-
+				Share();
 			}
 		});
 
@@ -356,5 +367,18 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			y += 15; // 다음 리뷰를 위해 y 좌표를 증가
 		}
 	}
+	
+	void Share() {//파일입출력으로 구현
+		   try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
+	        	   String infor = "[가게 이름] : " + restaurant.GetName() +"\n[가게 주소] : " + restaurant.getaddress() + "\n[영업 시간] : " + restaurant.GetBussinessHour() + "\n[가게 이름] : " + restaurant.GetName() + "\n[휴무일] : " + restaurant.GetRestday() + "\n[별점] : " + restaurant.GetStar() + "\n[전화번호] : " + restaurant.GetTel(); 
+	               writer.write(infor);
 
+	           Sharefinsh sharefinsh = new Sharefinsh();
+	           sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+	           sharefinsh.setVisible(true);
+	         
+	       } catch (IOException e) {
+	    	   //g.drawString("오류 발생" + e.getMessage(), 0, 0);
+	       }
+	   }
 }
