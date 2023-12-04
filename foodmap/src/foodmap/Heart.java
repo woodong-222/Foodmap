@@ -18,60 +18,76 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Heart extends JPanel {
-   HashMap<String, String> HeartList = new HashMap <String, String> ();
+   static HashMap<String, String> HeartList = new HashMap <String, String> ();
    private JLabel namelabel;
    private JButton sharebutton;
-   private JButton[] likedbutton = new JButton[10];
+   JButton[] likedbutton = new JButton[10];
    Foodmap f;
    
+   
    public Heart(Foodmap foodmap) {
-       for (int i = 0; i < 10; i++) {
-           likedbutton[i] = new JButton(); // 버튼 초기화
-       }
+       
        f = foodmap;
    }
    
-   void Like(Restaurant r) { 
+   static void Like(Restaurant r) { 
 		if(r.GetLike()== false) {//좋아요 안눌려있을 때
 			r.SetLike(true); //좋아요 누른 상태로 변경 
 			HeartList.put(r.GetName(), r.GetAddress());//찜 리스트에 추가
+			System.out.println(HeartList.size());
 		}
 		else if (r.GetLike()== true) {//좋아요 눌려있을때
 			r.SetLike(false);//좋아요 안누른 상태로 변경
 			HeartList.remove(r.GetName()); //찜 리스트 빼기
+			System.out.println(HeartList.size());
 		}
 	}
-   
+   private void removeAllButtons() {
+	    for (JButton button : likedbutton) {
+	        remove(button);
+	    }
+	    revalidate();
+	    repaint();
+	    
+	   
+	}
    void ShowHeartList() { // 찜목록 출력
+	   
+	   for (int i = 0; i < 10; i++) {
+           likedbutton[i] = new JButton(); // 버튼 초기화
+       }
 	   setLayout(null);
 	   setBounds(0, 0, 360, 500);
 	   namelabel = new JLabel("찜리스트");
 	   namelabel.setHorizontalAlignment(JLabel.CENTER);
-	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 25));
+	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 	   namelabel.setBounds(0, 0, 360, 72);
 	   
 	   add(namelabel);
-	   Iterator<String> keys = HeartList.keySet().iterator();
 	   
-	   for(int i=0; i<10; i++) {
-		   if(keys.hasNext() == false) break;
-		   likedbutton[i].setBounds(10, 72 + i * 40, 280, 30);//좌표설정할거임
-		   String key = keys.next();
-		   likedbutton[i].setText("[가게 이름]:" + key + " [주소]:" +  HeartList.get(key));
-		   
-		   likedbutton[i].addActionListener(new ActionListener() {
-		        @Override
-		        public void actionPerformed(ActionEvent e) {//버튼 눌렀을 때
-		        	if (!HeartList.isEmpty()) {
-		        	    Set<String> keySet = HeartList.keySet();
-		        	    Iterator<String> keyIterator = keySet.iterator();		        	    
-		        	    f.changerest(keyIterator.next());
-		        	}
-		        }
-		    });
-		   
-		   add(likedbutton[i]);
-	       
+	   if (!HeartList.isEmpty()) {
+	       Iterator<String> keys = HeartList.keySet().iterator();
+
+	       for (int i = 0; i < 10; i++) {
+	           if (!keys.hasNext()) break;  // 요소가 없으면 반복 중지
+	           likedbutton[i].setBounds(10, 72 + i * 40, 280, 30);//좌표설정할거임
+	           String key = keys.next();
+	           likedbutton[i].setText("[가게 이름]:" + key + "\n" + "[주소]:" +  HeartList.get(key));
+	           
+	           likedbutton[i].addActionListener(new ActionListener() {
+	        	   String res = key;
+	               @Override
+	               public void actionPerformed(ActionEvent e) {
+	                   if (!HeartList.isEmpty()) {
+	                       
+	                       removeAllButtons();
+	                       f.changerest(key);
+	                   }
+	               }
+	           });
+
+	           add(likedbutton[i]);
+	       }
 	   }
 	   
 	   

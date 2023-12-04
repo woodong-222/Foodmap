@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
+import foodmap.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	private JButton reviewbutton; // 리뷰 보기 버튼
 	private JButton menubutton; // 메뉴판 보기 버튼
 
+
 	private JTextArea text; // 주소
 
 	private Restaurant restaurant; // Restaurant 인스턴스
@@ -32,6 +34,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	boolean isphoto = true;
 	boolean isinfor = true;
 	boolean isliked = true;
+	
 
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
@@ -77,7 +80,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		// likedbutton.setFocusPainted(false);
 		likedbutton.setBounds(323, 72, 32, 32); // 버튼 위치와 크기 설정
 		likedbutton.addMouseListener(new MouseAdapter() {
-
+		
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				if (isliked) {
@@ -103,6 +106,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 					// ImageIcon menu = new ImageIcon(r.GetMenu());
 					// photolabel.setIcon(menu);
 					// 좋아요 해제 기능
+					Heart.Like(r);
 
 					isliked = false;
 				} else {
@@ -110,8 +114,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 					// ImageIcon photo = new ImageIcon(r.GetPhoto());
 					// photolabel.setIcon(photo);
 					// 좋아요 하기 기능
-
-					isliked = true;
+					Heart.Like(r);
 				}
 			}
 		});
