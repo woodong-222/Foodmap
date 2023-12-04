@@ -181,7 +181,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				// 공유기능
+				// 리뷰 추가 기능
                 Review reviewDialog = new Review();
                 reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                 reviewDialog.setVisible(true);

@@ -14,6 +14,7 @@ import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -128,6 +129,9 @@ public class Heart extends JPanel {
                writer.newLine();
            }
            //g.drawString("찜리스트가 성공적으로 저장되었습니다.", 0, 0);
+           Sharefinsh sharefinsh = new Sharefinsh();
+           sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+           sharefinsh.setVisible(true);
          
        } catch (IOException e) {
     	   //g.drawString("오류 발생" + e.getMessage(), 0, 0);

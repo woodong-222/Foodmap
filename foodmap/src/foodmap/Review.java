@@ -25,6 +25,7 @@ public class Review extends JDialog {
 
     public Review() {
         setBounds(100, 100, 450, 218);
+        setTitle("리뷰 작성");
 		setLocationRelativeTo(null); // 컴퓨터 정중앙
         getContentPane().setLayout(null);
         contentPanel.setLayout(null);
