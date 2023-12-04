@@ -1,5 +1,6 @@
 package foodmap;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,13 +11,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 public class Heart extends JPanel {
    static HashMap<String, String> HeartList = new HashMap <String, String> ();
@@ -27,7 +26,7 @@ public class Heart extends JPanel {
    
    
    public Heart(Foodmap foodmap) {
-       
+	   setBackground(Color.WHITE);
        f = foodmap;
    }
    
@@ -59,7 +58,7 @@ public class Heart extends JPanel {
        }
 	   setLayout(null);
 	   setBounds(0, 0, 360, 500);
-	   namelabel = new JLabel("찜리스트");
+	   namelabel = new JLabel("찜 리스트");
 	   namelabel.setHorizontalAlignment(JLabel.CENTER);
 	   namelabel.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 	   namelabel.setBounds(0, 0, 360, 72);
@@ -71,9 +70,9 @@ public class Heart extends JPanel {
 
 	       for (int i = 0; i < 10; i++) {
 	           if (!keys.hasNext()) break;  // 요소가 없으면 반복 중지
-	           likedbutton[i].setBounds(10, 72 + i * 40, 280, 30);//좌표설정할거임
+	           likedbutton[i].setBounds(10, 72 + i * 40, 340, 30);//좌표설정할거임
 	           String key = keys.next();
-	           likedbutton[i].setText("[가게 이름]:" + key + "\n" + "[주소]:" +  HeartList.get(key));
+	           likedbutton[i].setText("<html>[가게 이름]: " + key + "<br>" + " [주소]: " +  HeartList.get(key));
 	           
 	           likedbutton[i].addActionListener(new ActionListener() {
 	        	   String res = key;
@@ -82,7 +81,7 @@ public class Heart extends JPanel {
 	                   if (!HeartList.isEmpty()) {
 	                       
 	                       removeAllButtons();
-	                       f.changerest(key);
+	                       f.changerest(res);
 	                   }
 	               }
 	           });
@@ -96,7 +95,7 @@ public class Heart extends JPanel {
 		sharebutton.setBorderPainted(false);
 		sharebutton.setContentAreaFilled(false);
 		sharebutton.setFocusPainted(false);
-		sharebutton.setBounds(288, 72, 32, 32); // 버튼 위치와 크기 설정
+		sharebutton.setBounds(288, 20, 32, 32); // 버튼 위치와 크기 설정
 		sharebutton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
