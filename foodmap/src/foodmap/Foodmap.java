@@ -393,4 +393,7 @@ public class Foodmap extends JFrame {
 		revalidate();
 		repaint();
 	}
+	public Heart getHeart() {
+		return heart;
+	}
 }

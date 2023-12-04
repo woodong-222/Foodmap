@@ -18,11 +18,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class Heart extends JPanel {
-   HashMap<String, String> HeartList = new HashMap <String, String> ();
+   static HashMap<String, String> HeartList = new HashMap <String, String> ();
    private JLabel namelabel;
    private JButton sharebutton;
    private JButton[] likedbutton = new JButton[10];
    Foodmap f;
+   
    
    public Heart(Foodmap foodmap) {
        for (int i = 0; i < 10; i++) {
@@ -31,7 +32,7 @@ public class Heart extends JPanel {
        f = foodmap;
    }
    
-   void Like(Restaurant r) { 
+   static void Like(Restaurant r) { 
 		if(r.GetLike()== false) {//좋아요 안눌려있을 때
 			r.SetLike(true); //좋아요 누른 상태로 변경 
 			HeartList.put(r.GetName(), r.GetAddress());//찜 리스트에 추가

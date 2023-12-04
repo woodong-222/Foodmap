@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
+import foodmap.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -32,6 +33,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	boolean isphoto = true;
 	boolean isinfor = true;
 	boolean isliked = true;
+	
 
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
@@ -103,6 +105,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 					// ImageIcon menu = new ImageIcon(r.GetMenu());
 					// photolabel.setIcon(menu);
 					// 좋아요 해제 기능
+					
 
 					isliked = false;
 				} else {
@@ -110,8 +113,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 					// ImageIcon photo = new ImageIcon(r.GetPhoto());
 					// photolabel.setIcon(photo);
 					// 좋아요 하기 기능
-
-					isliked = true;
+					Heart.Like(r);
 				}
 			}
 		});
