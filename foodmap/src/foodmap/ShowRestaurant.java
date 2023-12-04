@@ -193,7 +193,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 리뷰 추가 기능
-                Review reviewDialog = new Review();
+                Review reviewDialog = new Review(r, ShowRestaurant.this);
                 reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
                 reviewDialog.setVisible(true);
 			}
@@ -229,30 +229,17 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				if (isinfor) {
-					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
-					// 가게 정보 넣기
-					submitButton.setVisible(true);
-					text.setVisible(false);
-					repaint();
-					isinfor = false;
-				} else {
-					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
-					// 리뷰 넣기
-					
-					//리뷰쓰기가 필요 -> 여기서 별점
-					
-					submitButton.setVisible(false);
-					
-			        // 여기에 버튼을 표시하는 코드 추가
-			        // 예를 들어, 버튼을 생성하고 패널에 추가하는 코드를 아래와 같이 작성할 수 있습니다.
-					text.setVisible(true);
-			        
-                             
-					
-					repaint();
-					isinfor = true;
-				}
-
+			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
+			        submitButton.setVisible(true); // 제출 버튼을 숨김
+			        ReviewsDisplay(); // 리뷰 정보 갱신 및 표시
+			        isinfor = false; // 상태를 리뷰 보기로 전환
+			    } else {
+			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
+			        submitButton.setVisible(false); // 제출 버튼을 보임
+			        showInformation(); // 원래의 가게 정보를 표시하는 메소드
+			        isinfor = true; // 상태를 정보 보기로 전환
+			    }
+			    repaint();
 			}
 		});
 
@@ -263,7 +250,38 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		add(text);
 		repaint();
 	}
+	
+	private void showInformation() {
+	    // 가게 정보를 JTextArea에 설정하는 코드
+	    String infoText = String.format("\n\n -영업시간: %s\n\n -전화번호: %s\n\n -휴무일: %s\n\n -주소: %s",
+	                                    restaurant.GetBussinessHour(), restaurant.GetTel(),
+	                                    restaurant.GetRestday(), restaurant.GetAddress());
+	    text.setText(infoText);
+	}
+	
+	
+	public void ReviewsDisplay() {
+	    text.setText(""); // 텍스트 영역을 초기화합니다.
 
+	    Map<String, Restaurant.ReviewData> currentReviews = restaurant.getReviews();
+	 // 리뷰 표시를 위한 문자열을 구성합니다.
+	    StringBuilder reviewsDisplay = new StringBuilder();
+	    for (Map.Entry<String, Restaurant.ReviewData> entry : currentReviews.entrySet()) {
+	        String user = entry.getKey();
+	        Restaurant.ReviewData reviewData = entry.getValue();
+	        reviewsDisplay.append(" -> ").append(user).append(" : ")
+	            .append(reviewData.review).append("\n");
+	            //.append(reviewData.stars).append(" stars)\n");
+	    }
+
+	    // 텍스트 영역에 리뷰 내용을 설정합니다.
+	    text.setText(reviewsDisplay.toString());
+
+	    // 패널을 새로 고치기 위해 validate()와 repaint()를 호출합니다.
+	    validate();
+	    repaint();
+	}
+	
 	void ShowStar(Restaurant r, Graphics g) { // 가게 별점 출력
 		Image Star0 = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage(); // 별사진 받기
 		Image Star05 = new ImageIcon(Main.class.getResource("../images/helf.png")).getImage();
@@ -358,16 +376,6 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		g.drawImage(r.GetMenu(), 0, 72, 360, 150, null);
 	}
 
-	void ShowReview(Graphics g, Map<String, String> reviews) {
-		int y = 350; // 시작 y 좌표
-		for (Map.Entry<String, String> entry : reviews.entrySet()) {
-			String user = entry.getKey();
-			String review = entry.getValue();
-			g.drawString(user + ": " + review, 10, y);
-			y += 15; // 다음 리뷰를 위해 y 좌표를 증가
-		}
-	}
-	
 	void Share() {//파일입출력으로 구현
 		   try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
 	        	   String infor = "[가게 이름] : " + restaurant.GetName() +"\n[가게 주소] : " + restaurant.getaddress() + "\n[영업 시간] : " + restaurant.GetBussinessHour() + "\n[가게 이름] : " + restaurant.GetName() + "\n[휴무일] : " + restaurant.GetRestday() + "\n[별점] : " + restaurant.GetStar() + "\n[전화번호] : " + restaurant.GetTel(); 

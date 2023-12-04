@@ -24,7 +24,7 @@ public class Restaurant extends Share {
 	private Image bigMenu;
 	private Image bigPhoto;
 	private int cnt = 0;	
-    private Map<String, String> reviews; // 리뷰를 저장할 해시맵
+	private Map<String, ReviewData> reviews; // 리뷰를 저장할 해시맵
 
 	public Restaurant(int Type, String Name, String BussinessHour, String Tel, String Restday, String Address){//생성자로 가게 기본 정보 입력받음
 		this.Type = Type;
@@ -40,11 +40,22 @@ public class Restaurant extends Share {
 		return Address;
 	}
 	
-	public void addReview(String user, String review) {
-        reviews.put(user, review);
+	// ReviewData 클래스로 리뷰와 별점을 묶어서 관리합니다.
+    public static class ReviewData {
+        String review;
+        double stars;
+
+        public ReviewData(String review, double stars) {
+            this.review = review;
+            this.stars = stars;
+        }
+    }
+    
+    public void addReview(String user, String review, double stars) {
+        reviews.put(user, new ReviewData(review, stars));
     }
 
-    public Map<String, String> getReviews() {
+    public Map<String, ReviewData> getReviews() {
         return reviews;
     }
 	
@@ -118,16 +129,7 @@ public class Restaurant extends Share {
 		return bigPhoto;
 	}
 	
-	void ShowReview() {//리뷰 보여주기
-		
-		
-	}
-	void WriteReview() {//리뷰 쓰기
-		
-	}
-	
-	
-	
+
 	
 }
 
