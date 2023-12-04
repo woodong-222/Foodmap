@@ -106,7 +106,11 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 					// ImageIcon menu = new ImageIcon(r.GetMenu());
 					// photolabel.setIcon(menu);
 					// 좋아요 해제 기능
+<<<<<<< HEAD
 					Heart.Like(r);
+=======
+					
+>>>>>>> 36804d106ac8b215b96b292abf1f6e4ec6d4088e
 
 					isliked = false;
 				} else {
