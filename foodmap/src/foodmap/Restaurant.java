@@ -59,14 +59,6 @@ public class Restaurant extends Share {
         return reviews;
     }
 	
-	void SetLike(boolean like) { //좋아요 입력
-		this.Like = like;
-		return;
-	}
-	boolean GetLike() { //좋아요 반환
-		return Like;
-	}
-	
 	void Evaluate(double Star) { //별점 주기
 		double sum = this.Star * cnt;
 		sum += Star;
@@ -74,9 +66,35 @@ public class Restaurant extends Share {
 		this.Star = sum / cnt;
 		return;
 	}
+	
+	 public double calculateAverageStars() {
+	        Map<String, ReviewData> reviews = getReviews();
+	        if (reviews.isEmpty()) {
+	            return 0.0; // 리뷰가 없을 경우 0을 반환합니다.
+	        }
+
+	        double sumStars = 0.0;
+	        for (ReviewData reviewData : reviews.values()) {
+	            sumStars += reviewData.stars;
+	        }
+
+	        return sumStars / reviews.size();
+	    }
+	 
+	 
 	double GetStar() {
 		return Star;
+	}	
+	
+	void SetLike(boolean like) { //좋아요 입력
+		this.Like = like;
+		return;
 	}
+	
+	boolean GetLike() { //좋아요 반환
+		return Like;
+	}
+	
 	int GetType() {
 		return Type;
 	}
@@ -129,7 +147,6 @@ public class Restaurant extends Share {
 		return bigPhoto;
 	}
 	
-
 	
 }
 
