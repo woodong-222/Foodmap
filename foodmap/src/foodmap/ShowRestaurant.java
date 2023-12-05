@@ -35,6 +35,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	
 	private JTextArea text; // 주소
 
+
 	private Restaurant restaurant; // Restaurant 인스턴스
 
 	boolean isphoto = true;
@@ -46,6 +47,8 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		setBounds(0, 0, 360, 500);
 		setBackground(Color.WHITE);
 
+
+		 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
 
 		JLabel line = new JLabel(new ImageIcon(Main.class.getResource("../images/line.png")));
@@ -201,6 +204,8 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
         add(submitButton);
 		submitButton.setVisible(false);
         
+		
+
 		// 리뷰 보기 버튼을 생성하고 추가합니다.
 		reviewbutton = new JButton(new ImageIcon(Main.class.getResource("../images/review.png")));
 		reviewbutton.setBorderPainted(false);
@@ -228,10 +233,15 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
+				
 				if (isinfor) {
 			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
 			        submitButton.setVisible(true); // 제출 버튼을 숨김
-			        ReviewsDisplay(); // 리뷰 정보 갱신 및 표시
+			        DisplayReviewsAndAverageStars();
+			        
+			        
+			     
+			      
 			        isinfor = false; // 상태를 리뷰 보기로 전환
 			    } else {
 			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
@@ -246,7 +256,6 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		add(photolabel); // 가게 사진 출력
 		add(menubutton); // 메뉴 버튼 출력
 		add(reviewbutton); // 리뷰 버튼 출력
-
 		add(text);
 		repaint();
 	}
@@ -259,113 +268,54 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 	    text.setText(infoText);
 	}
 	
+	void drawStars(Graphics g, double starRating) {
+	    int starWidth = 34; // 이미지 폭에 따라 이 값을 조절하세요
+	    int x = 5;
+	    int y = 225;
+
+	    for (int i = 0; i < 5; i++) {
+	        Image starImage;
+
+	        if (starRating >= i + 1) {
+	            starImage = new ImageIcon(Main.class.getResource("../images/one.png")).getImage();
+	        } else if (starRating >= i + 0.5) {
+	            starImage = new ImageIcon(Main.class.getResource("../images/half.png")).getImage();
+	        } else {
+	            starImage = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage();
+	        }
+
+	        g.drawImage(starImage, x, y, null);
+	        x += starWidth;
+	    }
+
+	    g.drawString(starRating + "/ 5.0", 180, y);
+	}
+
+	void DisplayReviewsAndAverageStars() {
 	
-	public void ReviewsDisplay() {
-	    text.setText(""); // 텍스트 영역을 초기화합니다.
+		text.setText(""); // 텍스트 영역을 초기화합니다.
 
 	    Map<String, Restaurant.ReviewData> currentReviews = restaurant.getReviews();
-	 // 리뷰 표시를 위한 문자열을 구성합니다.
+	    // 리뷰 표시를 위한 문자열을 구성합니다.
 	    StringBuilder reviewsDisplay = new StringBuilder();
 	    for (Map.Entry<String, Restaurant.ReviewData> entry : currentReviews.entrySet()) {
 	        String user = entry.getKey();
 	        Restaurant.ReviewData reviewData = entry.getValue();
 	        reviewsDisplay.append(" -> ").append(user).append(" : ")
 	            .append(reviewData.review).append("\n");
-	            //.append(reviewData.stars).append(" stars)\n");
 	    }
 
-	    // 텍스트 영역에 리뷰 내용을 설정합니다.
-	    text.setText(reviewsDisplay.toString());
+	    // 평균 별점을 표시하는 문자열을 구성합니다.
+	    double averageStars = restaurant.calculateAverageStars();
+	    String averageStarDisplay = "평균 별점: " + averageStars + " / 5.0";
+
+	    // 텍스트 영역에 리뷰 내용과 평균 별점을 설정합니다.
+	    text.setText(reviewsDisplay.toString() + "\n" + averageStarDisplay);
+	    drawStars(text.getGraphics(), averageStars);
 
 	    // 패널을 새로 고치기 위해 validate()와 repaint()를 호출합니다.
 	    validate();
 	    repaint();
-	}
-	
-	void ShowStar(Restaurant r, Graphics g) { // 가게 별점 출력
-		Image Star0 = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage(); // 별사진 받기
-		Image Star05 = new ImageIcon(Main.class.getResource("../images/helf.png")).getImage();
-		Image Star1 = new ImageIcon(Main.class.getResource("../images/one.png")).getImage();
-
-		if (r.GetStar() == 5.0) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star1, 73, 225, null);
-			g.drawImage(Star1, 107, 225, null);
-			g.drawImage(Star1, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-
-		} else if (r.GetStar() >= 4.5 && r.GetStar() < 5.0) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star1, 73, 225, null);
-			g.drawImage(Star1, 107, 225, null);
-			g.drawImage(Star05, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 4.0 && r.GetStar() < 4.5) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star1, 73, 225, null);
-			g.drawImage(Star1, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 3.5 && r.GetStar() < 4.0) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star1, 73, 225, null);
-			g.drawImage(Star05, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 3.0 && r.GetStar() < 3.5) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star1, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 2.5 && r.GetStar() < 3.0) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star05, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 2.0 && r.GetStar() < 2.5) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star1, 39, 225, null);
-			g.drawImage(Star0, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 1.5 && r.GetStar() < 2.0) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star05, 39, 225, null);
-			g.drawImage(Star0, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 1.0 && r.GetStar() < 1.5) {
-			g.drawImage(Star1, 5, 225, null);
-			g.drawImage(Star0, 39, 225, null);
-			g.drawImage(Star0, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 0.5 && r.GetStar() < 1.0) {
-			g.drawImage(Star05, 5, 225, null);
-			g.drawImage(Star0, 39, 225, null);
-			g.drawImage(Star0, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		} else if (r.GetStar() >= 0.0 && r.GetStar() < 0.5) {
-			g.drawImage(Star0, 5, 225, null);
-			g.drawImage(Star0, 39, 225, null);
-			g.drawImage(Star0, 73, 225, null);
-			g.drawImage(Star0, 107, 225, null);
-			g.drawImage(Star0, 141, 225, null);
-			g.drawString(r.GetStar() + "/ 5.0", 180, 225);
-		}
 	}
 
 	void ShowPhoto(Restaurant r, Graphics g) { // 가게 사진 출력하기
