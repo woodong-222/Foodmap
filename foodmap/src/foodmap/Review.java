@@ -104,7 +104,7 @@ public class Review extends JDialog {
 	        // Restaurant 객체에 리뷰를 추가합니다.
 	        restaurant.addReview(username, reviewContent, selectedStar);
 
-            showRestaurantPanel.ReviewsDisplay();
+            showRestaurantPanel.DisplayReviewsAndAverageStars();
 	        // 다이얼로그 창을 닫습니다.
 	        dispose();
 	    }
