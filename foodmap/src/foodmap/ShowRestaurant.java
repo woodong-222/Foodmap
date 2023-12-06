@@ -25,30 +25,26 @@ import javax.swing.JTextArea;
 
 public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 클래스
 
-	static HashMap<String, String> Restaurantinfor = new HashMap <String, String> ();
+	static HashMap<String, String> Restaurantinfor = new HashMap<String, String>();
 	private JButton likedbutton; // 리뷰 보기 버튼
 	private JButton sharebutton; // 메뉴판 보기 버튼
 	private JLabel namelabel;
 	private JLabel photolabel;
 	private JButton reviewbutton; // 리뷰 보기 버튼
 	private JButton menubutton; // 메뉴판 보기 버튼
-	
-	private JTextArea text; // 주소
 
+	private JTextArea text; // 주소
 
 	private Restaurant restaurant; // Restaurant 인스턴스
 
 	boolean isphoto = true;
 	boolean isinfor = true;
-	
 
 	public ShowRestaurant(Foodmap foodmap, Restaurant r) {
 		setLayout(null);
 		setBounds(0, 0, 360, 500);
 		setBackground(Color.WHITE);
 
-
-		 
 		this.restaurant = r; // Restaurant 인스턴스를 저장합니다.
 
 		JLabel line = new JLabel(new ImageIcon(Main.class.getResource("../images/line.png")));
@@ -90,10 +86,9 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 		// 좋아요 버튼을 생성하고 추가합니다.
 		likedbutton = new JButton();
-		if(r.GetLike()) {
+		if (r.GetLike()) {
 			likedbutton.setIcon(new ImageIcon(Main.class.getResource("../images/likedbut2.png")));
-		}
-		else {
+		} else {
 			likedbutton.setIcon(new ImageIcon(Main.class.getResource("../images/likedbut.png")));
 		}
 		likedbutton.setBorderPainted(false);
@@ -124,17 +119,15 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		photolabel = new JLabel(photo);
 		photolabel.setBounds(0, 72, 360, 150);
 
-	
-
 		// 가게 정보
-		text = new JTextArea("\n\n -영업시간 : " + r.GetBussinessHour() + "\n\n -전화번호 : " + r.GetTel() + "\n\n -휴무일 : " + r.GetRestday()+"\n\n -주소 : " + r.GetAddress());
+		text = new JTextArea("\n\n -영업시간 : " + r.GetBussinessHour() + "\n\n -전화번호 : " + r.GetTel() + "\n\n -휴무일 : "
+				+ r.GetRestday() + "\n\n -주소 : " + r.GetAddress());
 		text.setLineWrap(true);
 		text.setWrapStyleWord(true);
 		text.setEditable(false);
-		//text.setHorizontalAlignment(JLabel.LEFT);
+		// text.setHorizontalAlignment(JLabel.LEFT);
 		text.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		text.setBounds(0, 222, 360, 420);
-
 
 		// 메뉴판 보기 버튼을 생성하고 추가합니다.
 		menubutton = new JButton(new ImageIcon(Main.class.getResource("../images/menu.png")));
@@ -181,8 +174,8 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		submitButton.setBorderPainted(false);
 		submitButton.setContentAreaFilled(false);
 		submitButton.setFocusPainted(false);
-        submitButton.setBounds(323, 227, 32, 32);
-        submitButton.addMouseListener(new MouseAdapter() {
+		submitButton.setBounds(323, 227, 32, 32);
+		submitButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) { // 마우스 가까이 가면
 				submitButton.setIcon(new ImageIcon(Main.class.getResource("../images/add2.png")));
@@ -196,15 +189,13 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 리뷰 추가 기능
-                Review reviewDialog = new Review(r, ShowRestaurant.this);
-                reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                reviewDialog.setVisible(true);
+				Review reviewDialog = new Review(r, ShowRestaurant.this);
+				reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+				reviewDialog.setVisible(true);
 			}
-		});	
-        add(submitButton);
+		});
+		add(submitButton);
 		submitButton.setVisible(false);
-        
-		
 
 		// 리뷰 보기 버튼을 생성하고 추가합니다.
 		reviewbutton = new JButton(new ImageIcon(Main.class.getResource("../images/review.png")));
@@ -233,23 +224,20 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
-				
+
 				if (isinfor) {
-			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
-			        submitButton.setVisible(true); // 제출 버튼을 숨김
-			        DisplayReviewsAndAverageStars();
-			        
-			        
-			     
-			      
-			        isinfor = false; // 상태를 리뷰 보기로 전환
-			    } else {
-			        reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
-			        submitButton.setVisible(false); // 제출 버튼을 보임
-			        showInformation(); // 원래의 가게 정보를 표시하는 메소드
-			        isinfor = true; // 상태를 정보 보기로 전환
-			    }
-			    repaint();
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/infor2.png")));
+					submitButton.setVisible(true); // 제출 버튼을 숨김
+					DisplayReviewsAndAverageStars();
+
+					isinfor = false; // 상태를 리뷰 보기로 전환
+				} else {
+					reviewbutton.setIcon(new ImageIcon(Main.class.getResource("../images/review2.png")));
+					submitButton.setVisible(false); // 제출 버튼을 보임
+					showInformation(); // 원래의 가게 정보를 표시하는 메소드
+					isinfor = true; // 상태를 정보 보기로 전환
+				}
+				repaint();
 			}
 		});
 
@@ -259,63 +247,61 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		add(text);
 		repaint();
 	}
-	
+
 	private void showInformation() {
-	    // 가게 정보를 JTextArea에 설정하는 코드
-	    String infoText = String.format("\n\n -영업시간: %s\n\n -전화번호: %s\n\n -휴무일: %s\n\n -주소: %s",
-	                                    restaurant.GetBussinessHour(), restaurant.GetTel(),
-	                                    restaurant.GetRestday(), restaurant.GetAddress());
-	    text.setText(infoText);
+		// 가게 정보를 JTextArea에 설정하는 코드
+		String infoText = String.format("\n\n -영업시간: %s\n\n -전화번호: %s\n\n -휴무일: %s\n\n -주소: %s",
+				restaurant.GetBussinessHour(), restaurant.GetTel(), restaurant.GetRestday(), restaurant.GetAddress());
+		text.setText(infoText);
 	}
-	
+
 	void drawStars(Graphics g, double starRating) {
-	    int starWidth = 34; // 이미지 폭에 따라 이 값을 조절하세요
-	    int x = 5;
-	    int y = 225;
+		int starWidth = 34; // 이미지 폭에 따라 이 값을 조절하세요
+		int x = 5;
+		int y = 225;
 
-	    for (int i = 0; i < 5; i++) {
-	        Image starImage;
+		for (int i = 0; i < 5; i++) {
+			Image starImage;
 
-	        if (starRating >= i + 1) {
-	            starImage = new ImageIcon(Main.class.getResource("../images/one.png")).getImage();
-	        } else if (starRating >= i + 0.5) {
-	            starImage = new ImageIcon(Main.class.getResource("../images/half.png")).getImage();
-	        } else {
-	            starImage = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage();
-	        }
+			if (starRating >= i + 1) {
+				starImage = new ImageIcon(Main.class.getResource("../images/one.png")).getImage();
+			} else if (starRating >= i + 0.5) {
+				starImage = new ImageIcon(Main.class.getResource("../images/half.png")).getImage();
+			} else {
+				starImage = new ImageIcon(Main.class.getResource("../images/zero.png")).getImage();
+			}
 
-	        g.drawImage(starImage, x, y, null);
-	        x += starWidth;
-	    }
+			g.drawImage(starImage, x, y, null);
+			x += starWidth;
+		}
 
-	    g.drawString(starRating + "/ 5.0", 180, y);
+		g.drawString(starRating + "/ 5.0", 180, y);
 	}
 
 	void DisplayReviewsAndAverageStars() {
-	
+
 		text.setText(""); // 텍스트 영역을 초기화합니다.
 
-	    Map<String, Restaurant.ReviewData> currentReviews = restaurant.getReviews();
-	    // 리뷰 표시를 위한 문자열을 구성합니다.
-	    StringBuilder reviewsDisplay = new StringBuilder();
-	    for (Map.Entry<String, Restaurant.ReviewData> entry : currentReviews.entrySet()) {
-	        String user = entry.getKey();
-	        Restaurant.ReviewData reviewData = entry.getValue();
-	        reviewsDisplay.append(" -> ").append(user).append(" : ")
-	            .append(reviewData.review).append("\n");
-	    }
+		Map<String, Restaurant.ReviewData> currentReviews = restaurant.getReviews();
+		// 리뷰 표시를 위한 문자열을 구성합니다.
+		StringBuilder reviewsDisplay = new StringBuilder();
+		for (Map.Entry<String, Restaurant.ReviewData> entry : currentReviews.entrySet()) {
+			String user = entry.getKey();
+			Restaurant.ReviewData reviewData = entry.getValue();
+			reviewsDisplay.append(" -> ").append(user).append(" : ").append(reviewData.review).append("\n");
+		}
 
-	    // 평균 별점을 표시하는 문자열을 구성합니다.
-	    double averageStars = restaurant.calculateAverageStars();
-	    String averageStarDisplay = "평균 별점: " + averageStars + " / 5.0";
+		// 평균 별점을 표시하는 문자열을 구성합니다.
+		double averageStars = restaurant.calculateAverageStars();
+		String averageStarDisplay = "평균 별점: " + averageStars + " / 5.0";
 
-	    // 텍스트 영역에 리뷰 내용과 평균 별점을 설정합니다.
-	    text.setText(reviewsDisplay.toString() + "\n" + averageStarDisplay);
-	    drawStars(text.getGraphics(), averageStars);
+		// 텍스트 영역에 리뷰 내용과 평균 별점을 설정합니다.
+		text.setText(reviewsDisplay.toString() + "\n" + averageStarDisplay);
+		drawStars(text.getGraphics(), averageStars);
 
-	    // 패널을 새로 고치기 위해 validate()와 repaint()를 호출합니다.
-	    validate();
-	    repaint();
+		// 패널을 새로 고치기 위해 validate()와 repaint()를 호출합니다.
+		validate();
+		repaint();
 	}
 
 	void ShowPhoto(Restaurant r, Graphics g) { // 가게 사진 출력하기
@@ -326,17 +312,20 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		g.drawImage(r.GetMenu(), 0, 72, 360, 150, null);
 	}
 
-	void Share() {//파일입출력으로 구현
-		   try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
-	        	   String infor = "[가게 이름] : " + restaurant.GetName() +"\n[가게 주소] : " + restaurant.getaddress() + "\n[영업 시간] : " + restaurant.GetBussinessHour() + "\n[가게 이름] : " + restaurant.GetName() + "\n[휴무일] : " + restaurant.GetRestday() + "\n[별점] : " + restaurant.GetStar() + "\n[전화번호] : " + restaurant.GetTel(); 
-	               writer.write(infor);
+	void Share() {// 파일입출력으로 구현
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
+			String infor = "[가게 이름] : " + restaurant.GetName() + "\n[가게 주소] : " + restaurant.getaddress()
+					+ "\n[영업 시간] : " + restaurant.GetBussinessHour() + "\n[가게 이름] : " + restaurant.GetName()
+					+ "\n[휴무일] : " + restaurant.GetRestday() + "\n[별점] : " + restaurant.GetStar() + "\n[전화번호] : "
+					+ restaurant.GetTel();
+			writer.write(infor);
 
-	           Sharefinsh sharefinsh = new Sharefinsh();
-	           sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	           sharefinsh.setVisible(true);
-	         
-	       } catch (IOException e) {
-	    	   //g.drawString("오류 발생" + e.getMessage(), 0, 0);
-	       }
-	   }
+			Sharefinsh sharefinsh = new Sharefinsh();
+			sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			sharefinsh.setVisible(true);
+
+		} catch (IOException e) {
+			// g.drawString("오류 발생" + e.getMessage(), 0, 0);
+		}
+	}
 }
