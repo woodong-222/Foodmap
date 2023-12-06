@@ -1,22 +1,23 @@
 package foodmap;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.Toolkit;
-import java.awt.Color;
 
 public class Review extends JDialog {
 
@@ -96,18 +97,20 @@ public class Review extends JDialog {
 
 	private void saveReview() {
 		String username = textField.getText();
-	    String reviewContent = textField_1.getText();
-	    Double selectedStar = (Double) starComboBox.getSelectedItem();
+		String reviewContent = textField_1.getText();
+		Double selectedStar = (Double) starComboBox.getSelectedItem();
 
-	    // 사용자 이름, 리뷰 내용, 선택된 별점이 모두 유효한지 확인합니다.
-	    if (!username.isEmpty() && !reviewContent.isEmpty() && selectedStar != null) {
-	        // Restaurant 객체에 리뷰를 추가합니다.
-	        restaurant.addReview(username, reviewContent, selectedStar);
+		String filePath = restaurant.GetName() + ".txt";
 
-            showRestaurantPanel.DisplayReviewsAndAverageStars();
-	        // 다이얼로그 창을 닫습니다.
-	        dispose();
-	    }
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+			writer.write(selectedStar + "," + username + "," + reviewContent + "\n");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if (!username.isEmpty() && !reviewContent.isEmpty() && selectedStar != null)
+			showRestaurantPanel.DisplayReviewsAndAverageStars();
+		// 다이얼로그 창을 닫습니다.
+		dispose();
+
 	}
 }
-

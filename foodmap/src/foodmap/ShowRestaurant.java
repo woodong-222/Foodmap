@@ -4,17 +4,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import foodmap.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -80,7 +76,7 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 			@Override
 			public void mousePressed(MouseEvent e) { // 마우스 눌렀을 때
 				// 공유기능
-				Share();
+				r.Share();
 			}
 		});
 
@@ -192,6 +188,9 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 				Review reviewDialog = new Review(r, ShowRestaurant.this);
 				reviewDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 				reviewDialog.setVisible(true);
+				
+				validate();
+				repaint();
 			}
 		});
 		add(submitButton);
@@ -282,26 +281,50 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 
 		text.setText(""); // 텍스트 영역을 초기화합니다.
 
-		Map<String, Restaurant.ReviewData> currentReviews = restaurant.getReviews();
-		// 리뷰 표시를 위한 문자열을 구성합니다.
 		StringBuilder reviewsDisplay = new StringBuilder();
-		for (Map.Entry<String, Restaurant.ReviewData> entry : currentReviews.entrySet()) {
-			String user = entry.getKey();
-			Restaurant.ReviewData reviewData = entry.getValue();
-			reviewsDisplay.append(" -> ").append(user).append(" : ").append(reviewData.review).append("\n");
-		}
+		String filePath = restaurant.GetName() + ".txt"; // 사용자 아이디와 비밀번호가 저장된 파일 경로
+		double averageStars = 0;
+		double num = 0;
+		
+		createFileIfNotExists(filePath);
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+			String line;
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",");
+				averageStars += Double.parseDouble(parts[0].trim());
+				String storedUsername = parts[1].trim();
+				String storedReview = parts[2].trim();
+				num++;
 
+				reviewsDisplay.append(" -> ").append(storedUsername).append(" : ").append(storedReview).append("\n");
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		if(num != 0)
+			averageStars = averageStars/num;
 		// 평균 별점을 표시하는 문자열을 구성합니다.
-		double averageStars = restaurant.calculateAverageStars();
-		String averageStarDisplay = "평균 별점: " + averageStars + " / 5.0";
+		String averageStarDisplay = String.format("평균 별점: %.1f / 5.0", averageStars);
 
 		// 텍스트 영역에 리뷰 내용과 평균 별점을 설정합니다.
-		text.setText(reviewsDisplay.toString() + "\n" + averageStarDisplay);
+		text.setText( averageStarDisplay + "\n" + reviewsDisplay.toString());
 		drawStars(text.getGraphics(), averageStars);
 
 		// 패널을 새로 고치기 위해 validate()와 repaint()를 호출합니다.
 		validate();
 		repaint();
+	}
+	
+	private void createFileIfNotExists(String filePath) {
+	    File file = new File(filePath);
+	    if (!file.exists()) {
+	        try {
+	            file.createNewFile();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
 
 	void ShowPhoto(Restaurant r, Graphics g) { // 가게 사진 출력하기
@@ -312,20 +335,5 @@ public class ShowRestaurant extends JPanel { // 가게 정보 출력해주는 �
 		g.drawImage(r.GetMenu(), 0, 72, 360, 150, null);
 	}
 
-	void Share() {// 파일입출력으로 구현
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
-			String infor = "[가게 이름] : " + restaurant.GetName() + "\n[가게 주소] : " + restaurant.getaddress()
-					+ "\n[영업 시간] : " + restaurant.GetBussinessHour() + "\n[가게 이름] : " + restaurant.GetName()
-					+ "\n[휴무일] : " + restaurant.GetRestday() + "\n[별점] : " + restaurant.GetStar() + "\n[전화번호] : "
-					+ restaurant.GetTel();
-			writer.write(infor);
 
-			Sharefinsh sharefinsh = new Sharefinsh();
-			sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			sharefinsh.setVisible(true);
-
-		} catch (IOException e) {
-			// g.drawString("오류 발생" + e.getMessage(), 0, 0);
-		}
-	}
 }

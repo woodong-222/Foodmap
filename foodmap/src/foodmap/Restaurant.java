@@ -1,9 +1,13 @@
 package foodmap;
 import java.awt.Image;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 
 abstract class Share{
 	abstract void Share();
@@ -49,10 +53,6 @@ public class Restaurant extends Share {
             this.review = review;
             this.stars = stars;
         }
-    }
-    
-    public void addReview(String user, String review, double stars) {
-        reviews.put(user, new ReviewData(review, stars));
     }
 
     public Map<String, ReviewData> getReviews() {
@@ -116,7 +116,21 @@ public class Restaurant extends Share {
 		return Name;
 	}
 	
-	void Share() { //파일 입출력을 이용해 메모장에 가게 정보 입력	
+	void Share() { //파일 입출력을 이용해 메모장에 가게 정보 입력	// 파일입출력으로 구현
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("맛집정보.txt"))) {
+			String infor = "[가게 이름] : " + this.GetName() + "\n[가게 주소] : " + this.getaddress()
+					+ "\n[영업 시간] : " + this.GetBussinessHour() + "\n[가게 이름] : " + this.GetName()
+					+ "\n[휴무일] : " + this.GetRestday() + "\n[별점] : " + this.GetStar() + "\n[전화번호] : "
+					+ this.GetTel();
+			writer.write(infor);
+
+			Sharefinsh sharefinsh = new Sharefinsh();
+			sharefinsh.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			sharefinsh.setVisible(true);
+
+		} catch (IOException e) {
+			// g.drawString("오류 발생" + e.getMessage(), 0, 0);
+		}
 	
 	}
 	void SetMenu( String menu ) { //가게 메뉴 입력받기
